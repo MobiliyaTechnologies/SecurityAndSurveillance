@@ -1,4 +1,4 @@
-# ThirdEye
+# Security and Surveillance
 Mobiliya Security and Surveillance solution.
 
 ## About
@@ -18,9 +18,9 @@ Following are the repositories relevant for the accelerator:
 ## List of Documents
 Following are the list of documents available for reference:
 
-1) Architecture: Solution Architecture.
-2) ER diagrams: Entity relationships.
-3) Api Documentaion: Api documentation for Backend server, Compute Engine, Aggregator modules.
+1) Architecture: Solution Architecture (Mobiliya_SnS_Design_document.pdf).
+2) ER diagrams: Entity relationships (SnS_ER.png).
+3) Api Documentation: Api documentation for Backend server, Compute Engine, Aggregator modules (Mobiliya_SnS_API_design_reference_document.pdf).
 
 ## List of reference hardware (on premise)
 
