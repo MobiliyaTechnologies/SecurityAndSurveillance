@@ -12,8 +12,8 @@ Following are the repositories relevant for the accelerator:
 2) ARMTemplate: Azure Resource Manager template for the solution.
 3) ComputeEngine: Process captured image.
 4) PowerBI: Reports & visualization templates.
-5) RESTServer: Backend server for the solution.
-6) WebApp: Frontend web application for the solution.
+5) SnSRESTServer: Backend server for the solution.
+6) SnSWebApp: Frontend web application for the solution.
 
 ## List of Documents
 Following are the list of documents available for reference:
