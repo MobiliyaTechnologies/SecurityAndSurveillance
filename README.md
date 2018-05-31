@@ -22,14 +22,14 @@ Following are the list of documents available for reference:
 1) Architecture: Solution Architecture (Mobiliya_SnS_Design_document.pdf).
 2) ER diagrams: Entity relationships (SnS_ER.png).
 3) Api Documentation: Api documentation for Backend server, Compute Engine, Aggregator modules (Mobiliya_SnS_API_design_reference_document.pdf).
-4) Flashing Guide: User guide to flash Nvidia Jetson.(Jetson-Flashing.pdf)
-5) Setup Guide: User guide to setup SnS solution.(SNS_Setup.pdf)
+4) Setup: User guide to setup SnS solution (Setup/SnS_Installation 1.0.0.pdf).
+5) User Guide: Demo video with solution overview (Demo_Guide.mp4).
 
 ## List of reference hardware (on premise)
 
-Nvidia Jetson
-DVR
-IP Camera
+1) Nvidia Jetson.
+2) DVR.
+3) IP Camera.
 
 ## Not in scope of this accelerator
 
