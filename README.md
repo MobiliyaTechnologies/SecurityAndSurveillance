@@ -47,7 +47,7 @@ Following are the different repositories constituting the solution:
 4) [FaceComputeEngine](https://github.com/MobiliyaTechnologies/FaceComputeEngine): Compute engine for face derection and recognition.
 5) [PowerBI](https://github.com/MobiliyaTechnologies/SnSPowerBI): Reports & visualization templates.
 6) [RESTServer](https://github.com/MobiliyaTechnologies/SnSRESTServer): Backend server for the solution.
-+7) [WebApp](https://github.com/MobiliyaTechnologies/SnSWebApp): Frontend web application for the solution.
+7) [WebApp](https://github.com/MobiliyaTechnologies/SnSWebApp): Frontend web application for the solution.
 
 ## 4.0 Reporting of Issues
 Please report any issue on issues page.
