@@ -20,6 +20,18 @@ For fully deploying the solution, we will require to perform following steps:
 3) Camera with RTSP URL 
 
 ### 2.2 Setup
+#### 2.2.1 Software Setup
+Ensure that the pre-requisites are met.
+Simplest way to perform the software setup on Azure is to:
+* Click the "Deploy to Azure" button 
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fsnsarm.blob.core.windows.net%2Fdeploy%2Fazuredeploy.json" target="blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
+* Follow the guidelines provided in the following document <insert document link> which will help to clarify any issues while setting up the Azure account.
+  
+#### 2.2.1 Hardware Setup
+Ensure that the pre-requisites are met.
 
 ### 2.3 Configuration
 
