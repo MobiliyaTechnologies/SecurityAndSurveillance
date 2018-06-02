@@ -1,36 +1,30 @@
-# Security and Surveillance
-Mobiliya Security and Surveillance solution.
+# 1.0 Security and Surveillance
 
-## About
-1) This is the toplevel project which will provide the information regarding setup & deployment of Security and Surveillance Solution.
-2) User is expected to follow the guidelines outlined & refer to the individual projects for further details.
+This is the toplevel code of Mobiliya's Security & Surveillance project based on Microsoft Azure platform. 
 
-## List of Repositories
-Following are the repositories relevant for the accelerator:
+This repository holds together all the source code, setup instructions & user guide which will allow developer to access, setup & get the solution functional on their Azure environment & hardware setup. User is requested to follow all instructions & guidelines for setting up the solution. 
 
-1) [Aggregator](https://github.com/MobiliyaTechnologies/Aggregator): Module to pull images from camera and make it available for Compute Engine.
-2) [ARMTemplate](https://github.com/MobiliyaTechnologies/SnSARMTemplates): Azure Resource Manager template for the solution.
-3) [ComputeEngine](https://github.com/MobiliyaTechnologies/ComputeEngine): Process captured image.
-4) [FaceComputeEngine](https://github.com/MobiliyaTechnologies/FaceComputeEngine): Compute engine for face derection and recognition.
-5) [PowerBI](https://github.com/MobiliyaTechnologies/SnSPowerBI): Reports & visualization templates.
-6) [RESTServer](https://github.com/MobiliyaTechnologies/SnSRESTServer): Backend server for the solution.
-7) [WebApp](https://github.com/MobiliyaTechnologies/SnSWebApp): Frontend web application for the solution.
 
-## List of Documents
-Following are the list of documents available for reference:
+## 2.0 Getting Started
 
-1) Architecture: Solution Architecture (Mobiliya_SnS_Design_document.pdf).
-2) ER diagrams: Entity relationships (SnS_ER.png).
-3) Api Documentation: Api documentation for Backend server, Compute Engine, Aggregator modules (Mobiliya_SnS_API_design_reference_document.pdf).
-4) Setup: User guide to setup SnS solution (Setup/SnS_Installation 1.0.0.pdf).
-5) User Guide: Demo video with solution overview (Demo_Guide.mp4).
+For fully deploying the solution, we will require to perform following steps:
+![Image of 4 step process for setup](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/4%20Steps.png)
 
-## List of reference hardware (on premise)
+### 2.1 Pre-requisites
+##### 2.1.1 Software Pre-requisite for setup: 
+1) Azure account with IoT subscription(link)
+2) powerBI account with subscription (link)
+##### 2.1.2 Hardware Pre-requisite for setup: 
+1) Nvidia Jetson TX2 hardware 
+2) Host machine with Linux (for flashing Nvidia Jetson)
+3) Camera with RTSP URL 
 
-1) Nvidia Jetson.
-2) DVR.
-3) IP Camera.
+### 2.2 Setup
 
-## Not in scope of this accelerator
+### 2.3 Configuration
 
+### 2.4 Usage
+
+## 3.0 Reporting of Issues
+Please report any issue on issues page.
 
