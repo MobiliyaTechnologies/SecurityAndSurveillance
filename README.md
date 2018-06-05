@@ -31,8 +31,8 @@ Simplest way to perform the software setup on Azure is to:
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fsnsarm.blob.core.windows.net%2Fdeploy%2Fazuredeploy.json" target="blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
+
 * Follow the guidelines provided in the following document ([PowerBI Setup](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%205%20PowerBI%20Deployment%201.0.0.pdf)) to configure PowerBI.
-* Follow the guidelines provided in the following document ([https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf](Installation guide)) for detail setup configuration.
   
 #### 2.2.2 Hardware Setup
 Ensure that the pre-requisites are met.
