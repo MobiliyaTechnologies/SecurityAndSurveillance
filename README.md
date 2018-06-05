@@ -38,12 +38,21 @@ Simplest way to perform the software setup on Azure is to:
 Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
 * Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
-* Run [install_aggregator.sh]() to install and setup aggregator module.
-* Run [install_computeengine.sh]() to install and setup computeengine module.
+* Checkout [this](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance) repo on jetson terminals
+* cd /SecurityAndSurveillance/Setup/installation
+* sudo chmod +x install.sh (~ 30 mins)
+* Run [./install.sh https://github.com/MobiliyaTechnologies](link) to install and setup aggregator and compute Engine.
 
 ### 2.3 Configuration 
 * Refer [5.7b Start Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure and start Aggregator
 * Refer [5.7b Start Compute Engine](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure and start ComputeEngine
+* cd ~/Aggregator
+* $ forever start aggregatorServer.js
+* cd ~/ComputeEngine
+* $ forever start jetsonserver.js
+* Login to Web portal with 'Admin' account.
+* Update PowerBI configuration (Reports->Configuration) for 'Reports' and save configuration.
+* Update PowerBI configuration (Reports->Configuration) for 'Face Recognition' and save configuration.
 
 ### 2.4 Usage
 * Please refer to [Demo Video](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Demo_Guide.mp4) for solution overview.
