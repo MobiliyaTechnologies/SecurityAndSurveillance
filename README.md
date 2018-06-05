@@ -39,9 +39,9 @@ Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
 * Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
 * Checkout [this](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance) repo on jetson terminals
-* cd /SecurityAndSurveillance/Setup/installation
-* sudo chmod +x install.sh (~ 30 mins)
-* Run [./install.sh https://github.com/MobiliyaTechnologies](link) to install and setup aggregator and compute Engine.
+* cd SecurityAndSurveillance/Setup/installation
+* sudo chmod +x install.sh
+* Run [./install.sh https://github.com/MobiliyaTechnologies](link) to install and setup aggregator and compute Engine.(~30 mins)
 
 ### 2.3 Configuration 
 * Refer [5.7b Start Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure and start Aggregator
