@@ -14,8 +14,10 @@ If you are looking to just browse through the source code, please refer to secti
 
 ### 2.1 Pre-requisites
 ##### 2.1.1 Software Pre-requisite for setup: 
-1) Azure account with IoT subscription(link)
-2) powerBI account with subscription (link)
+1) Azure account
+2) Cloud component Packages uploaded ([setup guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%201%20Package%20Creation%201.0.0.pdf))
+3) Azure B2C application ([setup guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%202%20B2C%20Setup%201.0.0.pdf))
+4) Video Indexer ([setup guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%203%20Video%20Indexer%201.0.0.pdf))
 ##### 2.1.2 Hardware Pre-requisite for setup: 
 1) Nvidia Jetson TX2 hardware 
 2) Host machine with Linux (for flashing Nvidia Jetson)
@@ -29,15 +31,22 @@ Simplest way to perform the software setup on Azure is to:
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fsnsarm.blob.core.windows.net%2Fdeploy%2Fazuredeploy.json" target="blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-
-* Follow the guidelines provided in the following document <insert document link> which will help to clarify any issues while setting up the Azure account.
+* Follow the guidelines provided in the following document ([PowerBI Setup](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%205%20PowerBI%20Deployment%201.0.0.pdf)) to configure PowerBI.
+* Follow the guidelines provided in the following document ([https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf](Installation guide)) for detail setup configuration.
   
-#### 2.2.1 Hardware Setup
+#### 2.2.2 Hardware Setup
 Ensure that the pre-requisites are met.
+Simplest way to complete hardware setup is to:
+* Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
+* Run [install_aggregator.sh]() to install and setup aggregator module.
+* Run [install_computeengine.sh]() to install and setup computeengine module.
 
-### 2.3 Configuration
+### 2.3 Configuration 
+* Refer [5.7b Start Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure and start Aggregator
+* Refer [5.7b Start Compute Engine](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure and start ComputeEngine
 
 ### 2.4 Usage
+* Please refer to [Demo Video](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Demo_Guide.mp4) for solution overview.
 
 ## 3.0 Repository Structure 
 Following are the different repositories constituting the solution:
