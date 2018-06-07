@@ -43,7 +43,7 @@ Simplest way to complete hardware setup is to:
     git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     cd SecurityAndSurveillance/Setup/installation
     sudo chmod +x install.sh
-    ./install.sh https://github.com/MobiliyaTechnologies
+    ./install.sh -r=https://github.com/MobiliyaTechnologies
 ```
     
 ### 2.3 Configuration 
