@@ -28,7 +28,7 @@ Ensure that the pre-requisites are met.
 Simplest way to perform the software setup on Azure is to:
 * Click the "Deploy to Azure" button. Enter Video Indexer key and B2C application details acquired in earlier steps.
 * Please refer to [Deployment Guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Quick%20ARM%20Deployment%201.0.1.pdf) for guidelines.
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fsnsarm.blob.core.windows.net%2Fdeploy%2Fazuredeploy.json" target="blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fsnsarm.blob.core.windows.net%2Fdeploy%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
