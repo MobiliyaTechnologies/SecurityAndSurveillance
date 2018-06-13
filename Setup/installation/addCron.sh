@@ -1,4 +1,5 @@
 sudo chmod +x cleanJob.sh
+sudo chmod +x rebootServerJetson.sh
 mv ./cleanJob.sh ~/
 mv ./cleanupImages.py ~/
 mv ./rebootServerJetson.sh ~/ 
