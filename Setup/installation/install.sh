@@ -13,6 +13,7 @@ echo "REPO  = ${REPO_URL}"
 
 AGGREGATOR_BRANCH='jetson-only'
 COMPUTEENGINE_BRANCH='jetson-only'
+BASE_DIR=${PWD}
 
 sudo apt-get install -y git cmake curl aptitude
 
@@ -32,6 +33,7 @@ if [[ -d "Aggregator" ]]; then
 
 git clone -b ${AGGREGATOR_BRANCH} ${REPO_URL}/Aggregator 
 
+cd ${BASE_DIR}
 sudo chmod +x addCron.sh
 ./addCron.sh
 cd ~/
@@ -41,7 +43,7 @@ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 sudo apt-get install -y python-pip
-
+sudo pip install simplejson requests
 #Install JSON for C
 sudo apt-get install -y libjson0 libjson0-dev
 sudo apt-get install -y libjson0-dbg
@@ -59,6 +61,7 @@ sudo apt-get purge -y python-numpy
 sudo apt autoremove -y
 sudo apt-get install -y gir1.2-gstreamer-1.0 gstreamer-tools gstreamer1.0-alsa gstreamer1.0-clutter gstreamer1.0-clutter-3.0 gstreamer1.0-fluendo-mp3 gstreamer1.0-nice gstreamer1.0-plugins-bad gstreamer1.0-plugins-bad-faad gstreamer1.0-plugins-bad-videoparsers gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly-amr gstreamer1.0-pulseaudio gstreamer1.0-tools gstreamer1.0-x libgstreamer-plugins-bad1.0-0 libgstreamer-plugins-base1.0-0 libgstreamer-plugins-good1.0-0 libgstreamer1.0-0 libgstreamer1.0-dev libreoffice-avmedia-backend-gstreamer  gstreamer1.0-libav
 
+cd ${BASE_DIR}
 cd ./base64-simple
 make
 sudo make install
@@ -78,7 +81,6 @@ cd  ~/ComputeEngine/jetsonNodeServer
 sudo npm install
 cd ~/Aggregator
 chmod +x fisheye2pano
-npm run pythonPackages
 npm install
 
 echo "Installation is done..Do configuration"
