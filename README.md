@@ -47,8 +47,8 @@ Simplest way to complete hardware setup is to:
 ```
     
 ### 2.3 Configuration 
-* Refer [5.7b Start Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure Aggregator
-* Refer [5.7b Start Compute Engine](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure ComputeEngine
+* Refer [5.7b Configure Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure Aggregator
+* Refer [5.8b Configure Compute Engine](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure ComputeEngine
 * Follow below steps to start Aggregator and ComputeEngine
 ```
     cd ~/Aggregator
