@@ -43,6 +43,7 @@ Simplest way to complete hardware setup is to:
 ``` 
     $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/installation
+    $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
     $ ./install.sh -r=https://github.com/MobiliyaTechnologies
 ```
@@ -51,6 +52,7 @@ Simplest way to complete hardware setup is to:
 ``` 
     $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/ComputeEngine
+    $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
     $ ./install.sh -r=https://github.com/MobiliyaTechnologies
 ```
@@ -58,6 +60,7 @@ Simplest way to complete hardware setup is to:
 ``` 
     $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/Aggregator
+    $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
     $ ./install.sh -r=https://github.com/MobiliyaTechnologies
 ```
