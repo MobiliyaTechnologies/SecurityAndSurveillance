@@ -38,23 +38,58 @@ Simplest way to perform the software setup on Azure is to:
 Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
 * Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
-* Open Terminal on Jetson and follow below steps. (will take ~30 mins)
+##### Opt1: Both Aggregator and Compute Engine on Jetson
+* Open Terminal on Jetson and follow below steps to install Aggregator and ComputeEngine on Jetson. (will take ~30 mins)
 ``` 
-    git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
-    cd SecurityAndSurveillance/Setup/installation
-    sudo chmod +x install.sh
-    ./install.sh -r=https://github.com/MobiliyaTechnologies
+    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ cd SecurityAndSurveillance/Setup/installation
+    $ sudo chmod +x install.sh
+    $ ./install.sh -r=https://github.com/MobiliyaTechnologies
+```
+##### Opt2: Separate installation
+* Open Terminal on Jetson and follow below steps to install only ComputeEngine on Jetson. (Aggregator should be installed on another machine)
+``` 
+    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ cd SecurityAndSurveillance/Setup/ComputeEngine
+    $ sudo chmod +x install.sh
+    $ ./install.sh -r=https://github.com/MobiliyaTechnologies
+```
+* Open Terminal on Hostmachine (preferably Ubuntu) and follow below steps to install Aggregator.
+``` 
+    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ cd SecurityAndSurveillance/Setup/Aggregator
+    $ sudo chmod +x install.sh
+    $ ./install.sh -r=https://github.com/MobiliyaTechnologies
+```
+
+### 2.3 Configuration 
+* Refer following steps to configure Aggregator
+```
+    $ cd ~/Aggregator
+    $ vi config.js
+    Update config.aggregatorName and config.location
+    Update following placeholder with values acquired in previous steps (deployment)
+        <IOTHubConnectionString> => IoT Hub connection string
+        <storageAccountName> => Storage Account Name
+        <storageAccountAccessKey> => Storage Account Access Key
+        <backendUrl> => Backend Url (should start with https://)
 ```
     
-### 2.3 Configuration 
-* Refer [5.7b Configure Aggregator](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure Aggregator
-* Refer [5.8b Configure Compute Engine](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/SnS_Installation%201.0.0.pdf) to configure ComputeEngine
+* Refer following steps to configure ComputeEngine
+```
+    $ cd ~/ComputeEngine/jetsonNodeServer
+    $ vi settings.js
+    Update config.name and config.location
+    Update following placeholder with values acquired in previous steps (deployment)
+        <IOTHubConnectionString> => IoT Hub connection string
+        <backendUrl> => Backend Url (should start with https://)
+```
 * Follow below steps to start Aggregator and ComputeEngine
 ```
-    cd ~/Aggregator
-    forever start aggregatorServer.js
-    cd ~/ComputeEngine
-    forever start jetsonserver.js
+    $ cd ~/Aggregator
+    $ forever start aggregatorServer.js
+    $ cd ~/ComputeEngine
+    $ forever start jetsonserver.js
 ```
 * Login to Web portal with 'Admin' account.
 * Update PowerBI configuration (Reports->Configuration) for 'Reports' and save configuration.
