@@ -73,6 +73,7 @@ Simplest way to complete hardware setup is to:
         <storageAccountName> => Storage Account Name
         <storageAccountAccessKey> => Storage Account Access Key
         <backendUrl> => Backend Url (should start with https://)
+        <videoIndexingSubscriptionKey> => Video Indexer api key
 ```
     
 * Refer following steps to configure ComputeEngine
