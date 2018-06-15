@@ -1,3 +1,5 @@
+sed -i -e 's/\r$//' cleanJob.sh
+sed -i -e 's/\r$//' rebootServerAggregator.sh
 sudo chmod +x cleanJob.sh
 sudo chmod +x rebootServerAggregator.sh
 mv ./cleanJob.sh ~/
