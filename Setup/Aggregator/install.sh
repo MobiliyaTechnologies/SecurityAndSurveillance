@@ -43,8 +43,9 @@ cd ~/
 ./installOpenCVAggregator.sh
 
 #Install Aggregator
-echo -e "\n*************Installing Aggregator"
+echo -e "\n********0*****Installing Aggregator"
 cd ~/Aggregator
+sudo chmod +x fisheye2pano
 npm install
 
 #add reboot and delete images cron
