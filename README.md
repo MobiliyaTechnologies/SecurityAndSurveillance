@@ -54,7 +54,7 @@ Simplest way to complete hardware setup is to:
     $ cd SecurityAndSurveillance/Setup/ComputeEngine
     $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
-    $ ./install.sh -r=https://github.com/MobiliyaTechnologies
+    $ ./install.sh
 ```
 * Open Terminal on Hostmachine (preferably Ubuntu) and follow below steps to install Aggregator.
 ``` 
