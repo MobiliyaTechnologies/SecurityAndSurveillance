@@ -23,9 +23,9 @@ def cleanup(path,lifetime):
     for root, dirs, files in os.walk(path, topdown=False):
 	for file_ in files:
 		full_path = os.path.join(root, file_)
-        stat = os.stat(full_path)
-        if stat.st_mtime <= time_in_secs:
-            remove(full_path)
+		stat = os.stat(full_path)
+		if stat.st_mtime <= time_in_secs:
+		    remove(full_path)
 
 if __name__ == "__main__":
     #path of the folder 
