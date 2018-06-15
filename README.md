@@ -62,7 +62,7 @@ Simplest way to complete hardware setup is to:
     $ cd SecurityAndSurveillance/Setup/Aggregator
     $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
-    $ ./install.sh -r=https://github.com/MobiliyaTechnologies
+    $ ./install.sh
 ```
 
 ### 2.3 Configuration 
