@@ -1,4 +1,4 @@
-# Aggregator Server
+# ComputeEngine
 
 ## Pre-requisites 
 
@@ -7,16 +7,13 @@ Following if not preinstalled, will be installed from following steps
 - NodeJS (4.0.0 and above)
 - Python (2.7 and above)
 - OpenCV 3+
-- Mobiliya github REPO URL  
 
 ## Installation
 
-```bash 
-$ git clone 
-$ cd installComputeEngineYOLO
-$ chmod +x install.sh <REPO_URL>
+```bash  
+$ sed -i -e 's/\r$//' install.sh
+$ chmod +x install.sh
 $ ./install.sh
-
 ```
 
 ## Configuration
@@ -26,7 +23,7 @@ Open ~/Compute-Engine-Yolo/jetsonNodeServer/settings.js
 - Change config.name, config.location according to your choice.
 - Change according to following - 
 1. IoT Hub connection string    --> IOTHubConnectionString
-2.  Backend url		            --> backendUrl
+2.  Backend url		              --> backendUrl
 
 ## Running the server
 
