@@ -12,7 +12,8 @@
 ```bash 
 $ git clone 
 $ cd installAggregator
-$ chmod +x install.sh -r=<REPO_URL>
+$ sed -i -e 's/\r$//' install.sh
+$ chmod +x install.sh
 $ ./install.sh
 $ cd ~/Aggregator
 $ node aggregatorServer.js
