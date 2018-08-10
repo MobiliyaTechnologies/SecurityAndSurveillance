@@ -1,3 +1,6 @@
+### Note
+Source will be updated with latest version from August 10, 2018. Please avoid cloning till August 13th, 2018. You can use Release V1.0.0 for associated projects till then.  
+
 # 1.0 Security and Surveillance
 
 This is the toplevel code of Mobiliya's Security & Surveillance project based on Microsoft Azure platform. 
