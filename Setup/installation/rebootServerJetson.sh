@@ -6,4 +6,3 @@ forever start jetsonServer.js
 #Starting Aggregator
 cd ~/Aggregator
 forever start aggregatorServer.js
-

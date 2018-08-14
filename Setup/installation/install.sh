@@ -1,42 +1,12 @@
 #!/bin/bash
-
-for i in "$@"
-do
-case $i in
-    -r=*|--repo=*)
-    REPO_URL="${i#*=}"
-    shift
-    ;;
-esac
-done
-echo "REPO  = ${REPO_URL}"
-
 AGGREGATOR_BRANCH='jetson-only'
 COMPUTEENGINE_BRANCH='jetson-only'
 BASE_DIR=${PWD}
 
+cd ~/
 sudo apt-get install -y git cmake curl aptitude
-
-cd ~/
-if [[ -d "ComputeEngine" ]]; then
-    echo "In project Directory"
- sudo rm -rf ComputeEngine
- fi
-
-git clone -b ${COMPUTEENGINE_BRANCH} ${REPO_URL}/ComputeEngine
-
-cd ~/
-if [[ -d "Aggregator" ]]; then
-    echo "In project Directory"
- sudo rm -rf Aggregator
- fi
-
-git clone -b ${AGGREGATOR_BRANCH} ${REPO_URL}/Aggregator 
-
-cd ${BASE_DIR}
-sudo chmod +x addCron.sh
-./addCron.sh
-cd ~/
+git clone https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/ComputeEngine
+git clone -b ${AGGREGATOR_BRANCH}  https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/Aggregator 
 
 #Install NodeJS
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -74,13 +44,17 @@ cd ~/opencv/build
 sudo make install 
 
 #Installation of project 
-cd ~/ComputeEngine/darknet
-wget https://pjreddie.com/media/files/yolo.weights
-make
-cd  ~/ComputeEngine/jetsonNodeServer
-sudo npm install
 cd ~/Aggregator
 chmod +x fisheye2pano
-npm install
+npm install > opencvInstall.txt
+cd ~/ComputeEngine/darknet
+wget https://pjreddie.com/media/files/yolo.weights
+make -j6
+cd  ~/ComputeEngine/jetsonNodeServer
+sudo npm install
 
-echo "Installation is done..Do configuration"
+cd ${BASE_DIR}
+sudo chmod +x addCron.sh
+./addCron.sh
+cd ~/
+echo "Installation is done! Please do configurations now!"
