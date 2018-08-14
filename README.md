@@ -1,5 +1,3 @@
-### Note
-Source will be updated with latest version from August 10, 2018. Please avoid cloning till August 13th, 2018. You can use Release V1.0.0 for associated projects till then.  
 
 # 1.0 Security and Surveillance
 
@@ -38,6 +36,7 @@ Simplest way to perform the software setup on Azure is to:
 * Follow the guidelines provided in the following document ([PowerBI Setup](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%205%20PowerBI%20Deployment%201.0.0.pdf)) to configure PowerBI. (Can be done Later, prior to loading Reports)
   
 #### 2.2.2 Hardware Setup
+This step will only install required components on hardware. Refer step 2.2.3 for configuration step. 
 Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
 * Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
@@ -68,7 +67,8 @@ Simplest way to complete hardware setup is to:
     $ ./install.sh
 ```
 
-### 2.3 Configuration 
+### 2.3 Configuration (required)
+We will configure installed software components. We can start these components once configured.
 * Refer following steps to configure Aggregator
 ```
     $ cd ~/Aggregator
