@@ -89,6 +89,8 @@ We will configure installed software components. We can start these components o
     Update config.name and config.location
     Update following placeholder with values acquired in previous steps (deployment)
         <IOTHubConnectionString> => IoT Hub connection string
+        <storageAccountName> => Storage Account Name
+        <storageAccountAccessKey> => Storage Account Access Key
         <backendUrl> => Backend Url (should start with https://)
 ```
 * Follow below steps to start Aggregator and ComputeEngine
