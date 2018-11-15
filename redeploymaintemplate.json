@@ -4,6 +4,7 @@
     "parameters": {
         "deploymentPrefix": {
             "type": "string",
+            "defaultValue": "security",
             "minLength": 4,
             "maxLength": 15,
             "metadata": {
@@ -11,6 +12,7 @@
             }
         },
         "solutionType": {
+            "type":"string",
             "defaultValue": "Security and Servelines",
             "metadata": {
                 "description": "Provide the name of the solution"
@@ -150,7 +152,8 @@
             "serverBackendFullAddressDR": "[concat('https://',variables('serverBackendNameDR'),'.azurewebsites.net')]",
             "computeEngineFullAddressDR": "[concat('https://',variables('computeEngineNameDR'),'.azurewebsites.net')]",
             "ADEndpoint": "https://login.windows.net/",
-            "WindowsManagementUri": "https://management.core.windows.net/"
+            "WindowsManagementUri": "https://management.core.windows.net/",
+            "autoscaleNameDR":"[concat('autoscaleDR',variables('suffix'))]"
         },
         "omsSettings": {
             "omsWorkspaceName": "[concat('slns', variables('suffix'))]",
@@ -174,12 +177,12 @@
         "serverBackendNameDR": "[concat(parameters('deploymentPrefix'),'restappDR',variables('suffix'))]",
         "DeployStorageAccountName": "snsarm",
         "DeployStorageAccountKey": "",
-        "WebAppDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/distlatest.zip",
-        "ComputeEngineDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/CloudComputeEngineAppinS.zip",
-        "ServerBackendDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/snsPackageAppins.zip",
+        "WebAppDeployPackageURI": "https://github.com/sysgain/SecurityAndSurveillance/raw/master/code/build/distlatest.zip",
+        "ComputeEngineDeployPackageURI": "https://github.com/sysgain/SecurityAndSurveillance/raw/master/code/build/CloudComputeEngineAppins.zip",
+        "ServerBackendDeployPackageURI": "https://github.com/sysgain/SecurityAndSurveillance/raw/master/code/build/snsPackageAppins.zip",
         "SasToken": "?",
         "storageurl": "",
-        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SnS/solution-tagging/"
+        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SecurityAndSurveillance/master/"
     },
     "resources": [
         {
@@ -189,7 +192,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BasicUrl'),'nested/faceApi-DR.json?token=AT2LgEIAvxNDO6uWTjKifBHiH9D0Bh6pks5b9lZwwA%3D%3D')]",
+                    "uri": "[concat(variables('BasicUrl'),'nested/faceApi-DR.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -212,7 +215,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BasicUrl'),'nested/visionApi-DR.json?token=AT2LgJXMYMzHeCs65DlNZg4c4vS2eyh8ks5b9lN6wA%3D%3D')]",
+                    "uri": "[concat(variables('BasicUrl'),'nested/visionApi-DR.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -239,7 +242,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BasicUrl'),'nested/webapp-dr.json?token=AT2LgBY3upR9_k92gwuE_5dhUxU-pSkpks5b9lN9wA%3D%3D')]",
+                    "uri": "[concat(variables('BasicUrl'),'nested/webapp-dr.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -304,7 +307,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BasicUrl'),'nested/trafficmanager-redeploy.json?token=AT2LgEql86gRKw18KaJTD9RtVRY_8dgRks5b9lNzwA%3D%3D')]",
+                    "uri": "[concat(variables('BasicUrl'),'nested/trafficmanager-redeploy.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -329,6 +332,6 @@
         "ServerBackendUri": {
             "type": "string",
             "value": "[concat('https://', variables('serverBackendNameDR'),'.azurewebsites.net/')]"
-        },
+        }
     }
 }
