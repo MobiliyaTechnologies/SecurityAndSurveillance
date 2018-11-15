@@ -1,0 +1,1072 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "deploymentType": {
+            "type": "string",
+            "defaultValue": "Basic-Solution",
+            "allowedValues": [
+                "Basic-Solution",
+                "Standard-Solution",
+                "Premium-Solution"
+            ],
+            "metadata": {
+                "description": "Choose the solution deployment type from the drop down, for more information about the solution deployment type navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
+            }
+        },
+        "solutionType": {
+            "type": "string",
+            "defaultValue": "Security and Servelines",
+            "metadata": {
+                "description": "Provide the name of the Solution."
+            }
+        },
+        "deploymentPrefix": {
+            "type": "string",
+            "defaultValue": "security",
+            "minLength": 4,
+            "maxLength": 15,
+            "metadata": {
+                "description": "A unique string for the deployment with maximum 15 characters which would be used to provision the resources"
+            }
+        },
+        "cognitiveServicesLocation": {
+            "type": "string",
+            "defaultValue": "eastus",
+            "allowedValues": [
+                "eastus",
+                "eastus2",
+                "westus",
+                "westus2",
+                "southcentralus",
+                "westcentralus",
+                "northeurope",
+                "westeurope"
+            ],
+            "metadata": {
+                "description": "Choose location for CognitiveServices, for more information about the Data Lake Store navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
+            }
+        },
+        "omsLocation": {
+            "type": "string",
+            "defaultValue": "eastus",
+            "allowedValues": [
+                "australiasoutheast",
+                "canadacentral",
+                "centralindia",
+                "eastus",
+                "japaneast",
+                "southeastasia",
+                "uksouth",
+                "westeurope"
+            ],
+            "metadata": {
+                "description": "Choose location for OMS Log Analytics"
+            }
+        },
+        "appInsightsLocation": {
+            "type": "string",
+            "defaultValue": "westus2",
+            "allowedValues": [
+                "eastus",
+                "northeurope",
+                "southcentralus",
+                "southeastasia",
+                "westeurope",
+                "westus2"
+            ],
+            "metadata": {
+                "description": "specify the region for application insights"
+            }
+        },
+        "locationDr": {
+            "type": "string",
+            "defaultValue": "NA",
+            "allowedValues": [
+                "NA",
+                "EastUS2",
+                "CentralUS",
+                "WestUS2",
+                "WestCentralUS",
+                "CanadaCentral",
+                "CanadaEast",
+                "AustraliaEast",
+                "AustraliaSouthEast",
+                "CentralIndia",
+                "SouthIndia",
+                "EastAsia",
+                "SouthEastAsia",
+                "JapanWest",
+                "JapanEast",
+                "KoreaCentral",
+                "KoreaSouth",
+                "UKSouth",
+                "UKWest"
+            ],
+            "metadata": {
+                "description": "Choose locationDR which is different from the resource group region,if you have selected standard (or) premium option in the solution type inputparameter, for more information about the locationDr navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
+            }
+        },
+        "trafficManagerName": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "please provide the name of the trafficmanager certficate custome domain name"
+            }
+        },
+        "b2cApplicationId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter App Client ID registrered under B2C tenant"
+            }
+        },
+        "b2cApplicationIdDR": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "Enter Second App Client ID registrered under B2C tenant,if you choose Standard/premium Solution"
+            }
+        },
+        "b2cPolicy": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter B2C SignUp-SignIn policy"
+            }
+        },
+        "b2cTenant": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter B2C tenant name ex. something.onmicrosoft.com"
+            }
+        },
+        "b2cScope": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter User impersonation scope of B2C tenant"
+            }
+        },
+        "b2cScopeDR": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "Enter Second User impersonation scope of B2C tenant,if you choose Standard/Premium Solution"
+            }
+        },
+        "videoIndexerKey": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter Video Indexer service key"
+            }
+        },
+        "keyVaultName": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the keyvalut"
+            }
+        },
+        "keyVaultwebAppSecretName": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the webapp secret name "
+            }
+        },
+        "keyVaultResourceGroup": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the keyvalut resource group"
+            }
+        },
+        "webAppCertificatethumbPrint": {
+            "type": "string",
+            "defaultValue": "NA", 
+            "metadata": {
+                "description": "provide the thumbprint of the web app certificate."
+            }
+
+        }
+    },
+    "variables": {
+        "storageAccount": {
+            "location": "[variables('location')]",
+            "strAccntName": "[concat(toLower(parameters('deploymentPrefix')),'strgaccnt',variables('suffix'))]",
+            "strAccntType": "Standard_LRS",
+            "strAccntType1": "Standard_GRS"
+        },
+        "iothub": {
+            "iotHubName": "[variables('iotHubName')]",
+            "location": "[variables('location')]",
+            "iotHubPricingTier": "S1",
+            "iothubCapacityUnits": 1,
+            "iotHubKeyName": "iothubowner",
+            "iotHubHostName": "[concat(variables('iotHubName'),'.azure-devices.net')]"
+        },
+        "eventhub": {
+            "eventhubNamespaceName": "[variables('eventhubNamespace')]",
+            "eventHubName": "[variables('eventHubName')]",
+            "location": "[variables('location')]",
+            "locationDR": "[parameters('locationDr')]",
+            "sku": "Standard",
+            "aliasName": "[variables('aliasName')]",
+            "eventHubPrimaryKey": "[variables('eventHubPrimaryKey')]",
+            "eventHubPrimaryKey1": "[variables('eventHubPrimaryKey1')]",
+            "eventHubAliasConnectionString": "[concat('Endpoint=sb://', variables('aliasName'), '.servicebus.windows.net/;SharedAccessKeyName=EventHubOwner;SharedAccessKey=', variables('eventHubPrimaryKey'), ';EntityPath=', variables('eventhubName'))]",
+            "eventHubSecondaryKey": "[concat(uniqueString(variables('eventhubNamespace'), resourceGroup().Id, 'secondaryKey'),'F9NRSV78nYomDlFjsz21X9aVKPL4Eo=')]",
+            "eventHubConnectionString": "[concat('Endpoint=sb://', variables('eventhubNamespace'), '.servicebus.windows.net/;SharedAccessKeyName=EventHubOwner;SharedAccessKey=', variables('eventHubPrimaryKey'), ';EntityPath=', variables('eventhubName'))]",
+            "eventHubConnectionString1": "[concat('Endpoint=sb://', variables('recoverynamespace'), '.servicebus.windows.net/;SharedAccessKeyName=EventHubOwner;SharedAccessKey=', variables('eventHubPrimaryKey1'), ';EntityPath=', variables('eventhubName'))]",
+            "recoverynamespaceName": "[variables('recoverynamespace')]",
+            "authNameprimary": "[concat(variables('eventhubNamespace'), '/', 'RootManageSharedAccessKey')]",
+            "authNamerecovery": "[concat(variables('recoverynamespace'), '/', 'RootManageSharedAccessKey')]",
+            "disastureRecoveryConfig": "[concat(variables('eventhubNamespace'),'/', variables('aliasname'))]"
+        },
+        "faceApi": {
+            "location": "[parameters('cognitiveServicesLocation')]",
+            "locationDR": "[variables(parameters('cognitiveServicesLocation'))]",
+            "freeFaceApiName": "[concat(parameters('deploymentPrefix'),'-basic-faceapi',variables('suffix'))]",
+            "freeFaceApiNameDR": "[concat(parameters('deploymentPrefix'),'-basic-faceapiDR',variables('suffix'))]",
+            "freeFaceApiPricingTier": "S0",
+            "standardFaceApiName": "[concat(parameters('deploymentPrefix'),'-standard-faceapi',variables('suffix'))]",
+            "standardFaceApiNameDR": "[concat(parameters('deploymentPrefix'),'-standard-faceapiDR',variables('suffix'))]",
+            "standardFaceApiPricingTier": "S0"
+        },
+        "visionApi": {
+            "location": "[parameters('cognitiveServicesLocation')]",
+            "locationDR": "[variables(parameters('cognitiveServicesLocation'))]",
+            "freeVisionApiName": "[concat(parameters('deploymentPrefix'),'-basic-visionapi',variables('suffix'))]",
+            "freeVisionApiNameDR": "[concat(parameters('deploymentPrefix'),'-basic-visionapiDR',variables('suffix'))]",
+            "freeVisionApiPricingTier": "S1",
+            "standardVisionApiName": "[concat(parameters('deploymentPrefix'),'-standard-visionapi',variables('suffix'))]",
+            "standardVisionApiNameDR": "[concat(parameters('deploymentPrefix'),'-standard-visionapiDR',variables('suffix'))]",
+            "standardVisionApiPricingTier": "S1"
+        },
+        "documentDB": {
+            "location": "[variables('location')]",
+            "DocDBAccountName": "[concat(toLower(parameters('deploymentPrefix')),'docdb',variables('suffix'))]",
+            "offerType": "Standard",
+            "DocDBOfferThroughput": "400",
+            "readRegionLocation": "[parameters('locationDr')]"
+        },
+        "webApp": {
+            "location": "[variables('location')]",
+            "locationDR": "[parameters('locationDr')]",
+            "appServicePlanPricingTier1": "B1",
+            "appServicePlanPricingTier": "S1",
+            "appServicePlanInstanceCount": 1,
+            "hostingPlanName": "[concat(parameters('deploymentPrefix'),'AppServPlan',variables('suffix'))]",
+            "hostingPlanNameDR": "[concat(parameters('deploymentPrefix'),'AppServPlanDR',variables('suffix'))]",
+            "webSiteName": "[variables('webSiteName')]",
+            "webSiteNameDr": "[variables('webSiteNameDR')]",
+            "computeEngineName": "[variables('computeEngineName')]",
+            "computeEngineNameDR": "[variables('computeEngineNameDR')]",
+            "serverBackendName": "[variables('serverBackendName')]",
+            "serverBackendNameDR": "[variables('serverBackendNameDR')]",
+            "WebAppPackageURI": "[variables('WebAppDeployPackageURI')]",
+            "ComputeEnginePackageURI": "[variables('ComputeEngineDeployPackageURI')]",
+            "ServerBackendPackageURI": "[variables('ServerBackendDeployPackageURI')]",
+            "BlobconnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('DeployStorageAccountName'),';AccountKey=',variables('DeployStorageAccountKey'))]",
+            "websiteFullAddress": "[concat('https://',variables('webSiteName'),'.azurewebsites.net')]",
+            "serverBackendFullAddress": "[concat('https://',variables('serverBackendName'),'.azurewebsites.net')]",
+            "serverBackendFullAddressDR": "[concat('https://',variables('serverBackendNameDR'),'.azurewebsites.net')]",
+            "computeEngineFullAddress": "[concat('https://',variables('computeEngineName'),'.azurewebsites.net')]",
+            "computeEngineFullAddressDR": "[concat('https://',variables('computeEngineNameDR'),'.azurewebsites.net')]",
+            "ADEndpoint": "https://login.windows.net/",
+            "WindowsManagementUri": "https://management.core.windows.net/",
+            "autoscaleName":"[concat('autoscale',variables('suffix'))]",
+            "autoscaleNameDR":"[concat('autoscaleDR',variables('suffix'))]"
+        },
+        "omsSettings": {
+            "omsWorkspaceName": "[concat('slns', variables('suffix'))]",
+            "omsWorkspaceRegion": "[parameters('omsLocation')]",
+            "omsApiVersion": "2015-03-20",
+            "omsLogAnalyticsSku": "Standalone",
+            "omsEnableApiVersion": "2015-07-01"
+        },
+        "appInsights": {
+            "appInsightsLocation": "[parameters('appInsightsLocation')]",
+            "appInsightsApiVersion": "2014-04-01",
+            "appInsightResourceName": "[concat('AppInsights', variables('suffix'))]"
+        },
+        "trafficManagerSettings": {
+            "trafficManagerApiVersion": "2017-05-01",
+            "trafficManagerName": "[parameters('TrafficManagerName')]",
+            "trafficRoutingMethod": "Priority"
+        },
+        "certificateBinding": {
+            "existingAppLocation": "[variables('location')]",
+            "existingAppLocationDr": "[parameters('locationDr')]",
+            "hostingPlanName": "[variables('webApp').hostingPlanName]",
+            "hostingPlanNameDR": "[variables('webApp').hostingPlanNameDR]",
+            "certificateName": "[concat('webAppCertificate',variables('suffix'))]",
+            "certificateNameDR": "[concat('webAppCertificateDR',variables('suffix'))]",
+            "webSiteName": "[variables('webApp').webSiteName]",
+            "webSiteNameDR": "[variables('webApp').webSiteNameDr]",
+            "customHostname": "[concat(parameters('TrafficManagerName'),'.trafficmanager.net')]",
+            "keyVaultName": "[parameters('keyVaultName')]",
+            "keyVaultResourceid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', parameters('keyVaultResourceGroup'), '/providers/Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]",
+            "keyVaultSecretName": "[parameters('keyVaultwebAppSecretName')]",
+            "apiVersion": "2016-03-01",
+            "thumbPrint": "[parameters('webAppCertificatethumbPrint')]"
+        },
+        "location": "[resourceGroup().location]",
+        "suffix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
+        "iotHubName": "[concat(parameters('deploymentPrefix'),'iothub',variables('suffix'))]",
+        "eventHubName": "[concat(parameters('deploymentPrefix'),'eventhub',variables('suffix'))]",
+        "eventhubNamespace": "[concat(parameters('deploymentPrefix'),'eventhubnmsp',variables('suffix'))]",
+        "recoverynamespace": "[concat(parameters('deploymentPrefix'),'receoverynmsp',variables('suffix'))]",
+        "aliasName": "[concat(parameters('deploymentPrefix'),'eventhub-ha-alias',variables('suffix'))]",
+        "eventHubPrimaryKey": "[concat(uniqueString(variables('eventhubNamespace'), resourceGroup().Id, 'primaryKey'),'3VZcT2e5NfVeSFvTuiYUiWtXhxnJ2s=')]",
+        "eventHubPrimaryKey1": "[concat(uniqueString(variables('recoverynamespace'), resourceGroup().Id, 'primaryKey'),'3VZcT2e5NfVeSFvTuiYUiWtXhxnJ2s=')]",
+        "webSiteName": "[concat(parameters('deploymentPrefix'),'webapp',variables('suffix'))]",
+        "webSiteNameDR": "[concat(parameters('deploymentPrefix'),'webappDR',variables('suffix'))]",
+        "computeEngineName": "[concat(parameters('deploymentPrefix'),'cmptengine',variables('suffix'))]",
+        "computeEngineNameDR": "[concat(parameters('deploymentPrefix'),'cmptengineDR',variables('suffix'))]",
+        "serverBackendName": "[concat(parameters('deploymentPrefix'),'restapp',variables('suffix'))]",
+        "serverBackendNameDR": "[concat(parameters('deploymentPrefix'),'restappDR',variables('suffix'))]",
+        "DeployStorageAccountName": "snsarm",
+        "DeployStorageAccountKey": "",
+        "WebAppDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/distlatest.zip",
+        "ComputeEngineDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/CloudComputeEngineAppinS.zip",
+        "ServerBackendDeployPackageURI": "https://github.com/komalio/komali-test/raw/master/snsPackageAppins.zip",
+        "SasToken": "?",
+        "storageurl": "",
+        "eastus":"eastus2",
+        "eastus2":"eastus",
+        "westus":"westus2",
+        "westus2":"westus",
+        "southcentralus":"westcentralus",
+        "westcentralus":"southcentralus",
+        "northeurope":"westeurope",
+        "westeurope":"northeurope",
+        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SecurityAndSurveillance/master/"
+    },
+    "resources": [
+        {
+            "name": "omsworkspace",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/omsworkspace.json?token=AT2LgJ4czMUxnpbSyIZXqkxfS6DdNoGLks5b9lNrwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "AppInsights",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/appinsights.json?token=AT2LgNFvzKQ7TTvIExzmw2GnQWp5tIdCks5b9lNWwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "FaceApi",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/faceapi.json?token=AT2LgMnwsa7UasAewa6pgX0hG81VVA4uks5b9lWUwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "faceApi": {
+                        "value": "[variables('faceApi')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "VisionApi",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/visionapi.json?token=AT2LgGhFRyxrvkuAglzubvWC94bmXgd2ks5b9lN8wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "visionApi": {
+                        "value": "[variables('visionApi')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "StorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[equals(parameters('deploymentType'),'Basic-Solution')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/storage.json?token=AT2LgNDJWCmTVg4wUglyLC5YdwQRelgXks5b9lNvwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccount": {
+                        "value": "[variables('storageAccount')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "EventHub",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[equals(parameters('deploymentType'),'Basic-Solution')]",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/eventhub.json?token=AT2LgFoMOmPibiO3qDpJW8IqGK7tzOwqks5b9lNlwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "IotHub",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[equals(parameters('deploymentType'),'Basic-Solution')]",
+            "dependsOn": [
+                "EventHub",
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/iothub.json?token=AT2LgMzXNkVklFIVlmQMnBu2TrC9z187ks5b9lNpwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "iothub": {
+                        "value": "[variables('iothub')]"
+                    },
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "DocumentDB",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Basic-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/docdb.json?token=AT2LgORHhNe8o4oG3Yd-0SuPO_PSbD-8ks5b9lNgwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "documentDB": {
+                        "value": "[variables('documentDB')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "WebApp",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Basic-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "StorageAccount",
+                "IotHub",
+                "EventHub",
+                "DocumentDB",
+                "FaceApi",
+                "VisionApi",
+                "AppInsights"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/webapp.json?token=AT2LgLoDj1PKDAPJvIo9LA9Uf2zcfjXgks5b9lN_wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webApp": {
+                        "value": "[variables('webApp')]"
+                    },
+                    "iothub": {
+                        "value": "[variables('iothub')]"
+                    },
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "faceApi": {
+                        "value": "[variables('faceApi')]"
+                    },
+                    "visionApi": {
+                        "value": "[variables('visionApi')]"
+                    },
+                    "documentDB": {
+                        "value": "[variables('documentDB')]"
+                    },
+                    "storageAccount": {
+                        "value": "[variables('storageAccount')]"
+                    },
+                    "deploymentPrefix": {
+                        "value": "[parameters('deploymentPrefix')]"
+                    },
+                    "videoIndexerKey": {
+                        "value": "[parameters('videoIndexerKey')]"
+                    },
+                    "b2cTenant": {
+                        "value": "[parameters('b2cTenant')]"
+                    },
+                    "b2cApplicationId": {
+                        "value": "[parameters('b2cApplicationId')]"
+                    },
+                    "b2cPolicy": {
+                        "value": "[parameters('b2cPolicy')]"
+                    },
+                    "b2cScope": {
+                        "value": "[parameters('b2cScope')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "StorageAccountHA",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[or(equals(parameters('deploymentType'),'Standard-Solution'), equals(parameters('deploymentType'),'Premium-Solution'))]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/storage-ha.json?token=AT2LgO5wGmrPrGtNHhrzlhbvyOBB2Ik2ks5b9lNtwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccount": {
+                        "value": "[variables('storageAccount')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "EventHubHA",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[or(equals(parameters('deploymentType'),'Standard-Solution'), equals(parameters('deploymentType'),'Premium-Solution'))]",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/eventhub-geo.json?token=AT2LgGVaS4MviWdOMYKOaFr-yxyada3eks5b9lNiwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "IotHubHA",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[or(equals(parameters('deploymentType'),'Standard-Solution'), equals(parameters('deploymentType'),'Premium-Solution'))]",
+            "dependsOn": [
+                "EventHubHA",
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/iothub.json?token=AT2LgMzXNkVklFIVlmQMnBu2TrC9z187ks5b9lNpwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "iothub": {
+                        "value": "[variables('iothub')]"
+                    },
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "DocumentDBHA",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[or(equals(parameters('deploymentType'),'Standard-Solution'), equals(parameters('deploymentType'),'Premium-Solution'))]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/docdb-geo.json?token=AT2LgNVwGZhwOVTfFDHygxzs4rL_WbeLks5b9lNdwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "documentDB": {
+                        "value": "[variables('documentDB')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "WebAppHA",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[or(equals(parameters('deploymentType'),'Standard-Solution'), equals(parameters('deploymentType'),'Premium-Solution'))]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "StorageAccountHA",
+                "IotHubHA",
+                "EventHubHA",
+                "DocumentDBHA",
+                "FaceApi",
+                "VisionApi",
+                "omsworkspace",
+                "AppInsights"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/webappha.json?token=AT2LgP-z2EbrjPO4uJET2nhNdW2aGzzgks5b9lM9wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webApp": {
+                        "value": "[variables('webApp')]"
+                    },
+                    "iothub": {
+                        "value": "[variables('iothub')]"
+                    },
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "faceApi": {
+                        "value": "[variables('faceApi')]"
+                    },
+                    "visionApi": {
+                        "value": "[variables('visionApi')]"
+                    },
+                    "documentDB": {
+                        "value": "[variables('documentDB')]"
+                    },
+                    "storageAccount": {
+                        "value": "[variables('storageAccount')]"
+                    },
+                    "deploymentPrefix": {
+                        "value": "[parameters('deploymentPrefix')]"
+                    },
+                    "videoIndexerKey": {
+                        "value": "[parameters('videoIndexerKey')]"
+                    },
+                    "b2cTenant": {
+                        "value": "[parameters('b2cTenant')]"
+                    },
+                    "b2cApplicationId": {
+                        "value": "[parameters('b2cApplicationId')]"
+                    },
+                    "b2cPolicy": {
+                        "value": "[parameters('b2cPolicy')]"
+                    },
+                    "b2cScope": {
+                        "value": "[parameters('b2cScope')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "TrafficManagerStandard",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Standard-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "WebAppHA"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/trafficmanager-Std.json?token=AT2LgAfPsmHC3iYY2t1J6KvfEjFO4OExks5b9lNxwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "trafficManagerSettings": {
+                        "value": "[variables('trafficManagerSettings')]"
+                    },
+                    "webApp": {
+                        "value": "[variables('webApp')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "certificateBindingStandard",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Standard-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "WebAppHA",
+                "TrafficManagerStandard"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/certificatebinding-Std.json?token=AT2LgFdZP-V8QsTiVjQ2SykInO8VNxstks5b9lNZwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "certificateBinding": {
+                        "value": "[variables('certificateBinding')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "FaceApiDR",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[equals(parameters('deploymentType'),'Premium-Solution')]",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/faceApi-DR.json?token=AT2LgP9t8hmdf9eI5PN_iECrp06VWe8aks5b9lNnwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "faceApi": {
+                        "value": "[variables('faceApi')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "VisionApiDR",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "condition": "[equals(parameters('deploymentType'),'Premium-Solution')]",
+            "dependsOn": [
+                "omsworkspace"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/visionApi-DR.json?token=AT2LgJXMYMzHeCs65DlNZg4c4vS2eyh8ks5b9lN6wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "visionApi": {
+                        "value": "[variables('visionApi')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "RecoveryWebApp",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Premium-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "StorageAccountHA",
+                "IotHubHA",
+                "EventHubHA",
+                "DocumentDBHA",
+                "FaceApiDR",
+                "VisionApiDR",
+                "omsworkspace",
+                "AppInsights"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/webapp-dr.json?token=AT2LgBY3upR9_k92gwuE_5dhUxU-pSkpks5b9lN9wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webApp": {
+                        "value": "[variables('webApp')]"
+                    },
+                    "iothub": {
+                        "value": "[variables('iothub')]"
+                    },
+                    "eventhub": {
+                        "value": "[variables('eventhub')]"
+                    },
+                    "faceApi": {
+                        "value": "[variables('faceApi')]"
+                    },
+                    "visionApi": {
+                        "value": "[variables('visionApi')]"
+                    },
+                    "documentDB": {
+                        "value": "[variables('documentDB')]"
+                    },
+                    "storageAccount": {
+                        "value": "[variables('storageAccount')]"
+                    },
+                    "deploymentPrefix": {
+                        "value": "[parameters('deploymentPrefix')]"
+                    },
+                    "videoIndexerKey": {
+                        "value": "[parameters('videoIndexerKey')]"
+                    },
+                    "b2cTenant": {
+                        "value": "[parameters('b2cTenant')]"
+                    },
+                    "b2cApplicationIdDR": {
+                        "value": "[parameters('b2cApplicationIdDR')]"
+                    },
+                    "b2cPolicy": {
+                        "value": "[parameters('b2cPolicy')]"
+                    },
+                    "b2cScopeDR": {
+                        "value": "[parameters('b2cScopeDR')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    },
+                    "omsSettings": {
+                        "value": "[variables('omsSettings')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "TrafficManagerPremium",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Premium-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "WebAppHA",
+                "RecoveryWebApp"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/trafficmanager.json?token=AT2LgKW1_Ljo_mNghA4rNDaAG5G8DKYxks5b9lN3wA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "trafficManagerSettings": {
+                        "value": "[variables('trafficManagerSettings')]"
+                    },
+                    "webApp": {
+                        "value": "[variables('webApp')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        },
+        {
+            "name": "certificateBindingPremium",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('deploymentType'),'Premium-Solution')]",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "WebAppHA",
+                "RecoveryWebApp",
+                "TrafficManagerPremium"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/certificatebinding.json?token=AT2LgDqrppyqmXxrUOM38G1ARYPfrFQJks5b9lNcwA%3D%3D')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "certificateBinding": {
+                        "value": "[variables('certificateBinding')]"
+                    },
+                    "solutionType":{
+                        "value":"[parameters('solutionType')]"
+                    }
+
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "WebSiteUri": {
+            "type": "string",
+            "value": "[concat('https://', variables('webSiteName'),'.azurewebsites.net/')]"
+        },
+        "ServerBackendUri": {
+            "type": "string",
+            "value": "[concat('https://', variables('serverBackendName'),'.azurewebsites.net/')]"
+        },
+        "AccountName": {
+            "type": "string",
+            "value": "[variables('storageAccount').strAccntName]"
+        },
+        "VideoIndexerKey": {
+            "type": "string",
+            "value": "[parameters('videoIndexerKey')]"
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "omsSettings": {
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {
+        "batch1": {
+            "solutions": {
+                "name": "[concat('AzureWebAppsAnalytics', '(', parameters('omsSettings').omsWorkspaceName, ')')]",
+                "marketplaceName": "AzureWebAppsAnalytics"
+            }
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('omsSettings').omsApiVersion]",
+            "location": "[parameters('omsSettings').omsWorkspaceRegion]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "name": "[parameters('omsSettings').omsWorkspaceName]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "comments": "Log Analytics workspace",
+            "properties": {
+                "sku": {
+                    "name": "[parameters('omsSettings').omsLogAnalyticsSku]"
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-11-01-preview",
+            "type": "Microsoft.OperationsManagement/solutions",
+            "name": "[concat(variables('batch1').solutions.name)]",
+            "location": "[parameters('omsSettings').omsWorkspaceRegion]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]"
+            ],
+            "properties": {
+                "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('omsSettings').omsWorkspaceName)]"
+            },
+            "plan": {
+                "name": "[variables('batch1').solutions.name]",
+                "product": "[concat('OMSGallery/', variables('batch1').solutions.marketplaceName)]",
+                "promotionCode": "",
+                "publisher": "Microsoft"
+            }
+        }
+    ],
+    "outputs": {
+        "workspaceCustomerId": {
+            "value": "[reference(concat('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName), '2015-11-01-preview').customerId]",
+            "type": "string"
+        },
+        "workspacePrimarySharedKey": {
+            "value": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces', parameters('omsSettings').omsWorkspaceName), '2015-11-01-preview').primarySharedKey]",
+            "type": "string"
+        }
+    }
+}

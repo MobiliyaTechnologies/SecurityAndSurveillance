@@ -1,0 +1,35 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccount": {
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('storageAccount').strAccntName]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "[parameters('storageAccount').location]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "apiVersion": "2016-01-01",
+            "sku": {
+                "name": "[parameters('storageAccount').strAccntType]"
+            },
+            "dependsOn": [],
+            "kind": "Storage"
+        }
+    ],
+    "outputs": {
+        "AccountKey":{
+            "type": "string",
+            "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccount').strAccntName), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "trafficManagerSettings": {
+            "type": "object"
+        },
+        "webApp": {
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+            "name": "[concat(parameters('trafficManagerSettings').trafficManagerName,'/', parameters('webApp').webSiteNameDR)]",
+            "apiVersion": "[parameters('trafficManagerSettings').trafficManagerApiVersion]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "endpointStatus": "Enabled",
+                "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('webApp').webSiteNameDR)]",
+                "weight": 1,
+                "priority": 2,
+                "endpointLocation": "[parameters('webApp').locationDR]"
+            }
+        }
+    ]
+}

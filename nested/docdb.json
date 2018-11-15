@@ -1,0 +1,92 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "documentDB": {
+            "type": "object"
+        },
+        "omsSettings":{
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2015-04-08",
+            "kind": "MongoDB",
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "name": "[parameters('documentDB').DocDBAccountName]",
+            "location": "[parameters('documentDB').location]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "name": "[parameters('documentDB').DocDBAccountName]",
+                "databaseAccountOfferType": "[parameters('documentDB').offerType]",
+                "locations": [
+                    {
+                        "locationName": "[parameters('documentDB').location]",
+                        "failoverPriority": 0,
+                        "id": "[concat(parameters('documentDB').DocDBAccountName, '-', parameters('documentDB').location)]"
+                    }
+                ],
+                "capabilities": [
+                    {
+                        "name": "EnableAggregationPipeline"
+                    },
+                    {
+                        "name": "MongoDBv3.4"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "name": "Microsoft.Insights/service",
+                    "type": "providers/diagnosticSettings",
+                    "apiVersion": "2015-07-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.DocumentDb/databaseAccounts/', parameters('documentDB').DocDBAccountName)]"
+                    ],
+                    "properties": {
+                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
+                        "logs": [
+                            {
+                                "category": "DataPlaneRequests",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "MongoRequests",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            }
+                        ],
+                        "metrics": [
+                            {
+                                "timeGrain": "AllMetrics",
+                                "category": "AllMetrics",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "enabled": false,
+                                    "days": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],    
+            "tags": {
+                "defaultExperience": "MongoDB"
+            }
+        }
+    ]
+}

@@ -1,0 +1,119 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "eventhub": {
+            "type": "object"
+        },
+        "omsSettings":{
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2017-04-01",
+            "name": "[parameters('eventhub').eventhubNamespaceName]",
+            "type": "Microsoft.EventHub/Namespaces",
+            "location": "[parameters('eventhub').location]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "sku": {
+                "name": "[parameters('eventhub').sku]"
+            },
+            "properties": {
+                "isAutoInflateEnabled": true,
+                "maximumThroughputUnits": 2
+            },
+            "resources": [
+                {
+                    "apiVersion": "2017-04-01",
+                    "name": "[parameters('eventhub').eventhubName]",
+                    "type": "EventHubs",
+                    "dependsOn": [
+                        "[concat('Microsoft.EventHub/namespaces/', parameters('eventhub').eventhubNamespaceName)]"
+                    ],
+                    "properties": {
+                        "messageRetentionInDays": "3",
+                        "partitionCount": "4"
+                    },
+                    "resources": [
+                        {
+                            "apiVersion": "2014-09-01",
+                            "name": "EventHubOwner",
+                            "type": "AuthorizationRules",
+                            "dependsOn": [
+                                "[parameters('eventhub').eventhubName]"
+                            ],
+                            "properties": {
+                                "keyName": "EventHubOwner",
+                                "claimType": "SharedAccessKey",
+                                "claimValue": "None",
+                                "primaryKey": "[parameters('eventhub').eventHubPrimaryKey]",
+                                "secondaryKey": "[parameters('eventhub').eventHubSecondaryKey]",
+                                "rights": [
+                                    "Manage",
+                                    "Send",
+                                    "Listen"
+                                ],
+                                "revision": -1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Microsoft.Insights/service",
+                    "type": "providers/diagnosticSettings",
+                    "apiVersion": "2015-07-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.EventHub/namespaces/', parameters('eventhub').eventhubNamespaceName)]"
+                    ],
+                    "properties": {
+                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
+                        "logs": [
+                            {
+                                "category": "ArchiveLogs",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "OperationalLogs",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "AutoScaleLogs",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            }
+                        ],
+                        "metrics": [
+                            {
+                                "timeGrain": "AllMetrics",
+                                "category": "AllMetrics",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "enabled": false,
+                                    "days": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

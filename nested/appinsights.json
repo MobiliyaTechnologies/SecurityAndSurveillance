@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appInsights": {
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "[parameters('appInsights').appInsightsApiVersion]",
+            "name": "[parameters('appInsights').appInsightResourceName]",
+            "type": "Microsoft.Insights/components",
+            "location": "[parameters('appInsights').appInsightsLocation]",
+            "dependsOn": [],
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('appInsights').appInsightResourceName]"
+            }
+        }
+    ],
+    "outputs": {
+        "InstrumentationKey": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsights').appInsightResourceName), '2014-04-01').InstrumentationKey]"
+        }
+    }
+}
