@@ -12,7 +12,7 @@
             }
         },
         "solutionType": {
-            "type":"string",
+            "type": "string",
             "defaultValue": "Security and Servelines",
             "metadata": {
                 "description": "Provide the name of the solution"
@@ -98,6 +98,34 @@
             "metadata": {
                 "description": "Enter Video Indexer service key"
             }
+        },
+        "keyVaultName": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the keyvalut"
+            }
+        },
+        "keyVaultwebAppSecretName": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the webapp secret name "
+            }
+        },
+        "keyVaultResourceGroup": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the name of the keyvalut resource group"
+            }
+        },
+        "webAppCertificatethumbPrint": {
+            "type": "string",
+            "defaultValue": "NA",
+            "metadata": {
+                "description": "provide the thumbprint of the web app certificate."
+            }
         }
     },
     "variables": {
@@ -153,7 +181,7 @@
             "computeEngineFullAddressDR": "[concat('https://',variables('computeEngineNameDR'),'.azurewebsites.net')]",
             "ADEndpoint": "https://login.windows.net/",
             "WindowsManagementUri": "https://management.core.windows.net/",
-            "autoscaleNameDR":"[concat('autoscaleDR',variables('suffix'))]"
+            "autoscaleNameDR": "[concat('autoscaleDR',variables('suffix'))]"
         },
         "omsSettings": {
             "omsWorkspaceName": "[concat('slns', variables('suffix'))]",
@@ -167,7 +195,20 @@
             "trafficManagerApiVersion": "2017-05-01",
             "trafficManagerName": "[parameters('TrafficManagerName')]"
         },
+        "certificateBinding": {
+            "existingAppLocationDR": "[parameters('locationDR')]",
+            "hostingPlanNameDR": "[variables('hostingPlanNameDR')]",
+            "certificateNameDR": "[concat('webAppCertificateDR',variables('suffix'))]",
+            "webSiteNameDR": "[variables('webSiteNameDR')]",
+            "customHostname": "[concat(parameters('TrafficManagerName'),'.trafficmanager.net')]",
+            "keyVaultName": "[parameters('keyVaultName')]",
+            "keyVaultResourceid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', parameters('keyVaultResourceGroup'), '/providers/Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]",
+            "keyVaultSecretName": "[parameters('keyVaultwebAppSecretName')]",
+            "apiVersion": "2016-03-01",
+            "thumbPrint": "[parameters('webAppCertificatethumbPrint')]"
+        },
         "suffix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
+        "hostingPlanNameDR": "[concat(parameters('deploymentPrefix'),'AppServPlanDR',variables('suffix'))]",
         "aliasName": "[concat(parameters('deploymentPrefix'),'eventhub-ha-alias',variables('suffix'))]",
         "iotHubName": "[concat(parameters('deploymentPrefix'),'iothub',variables('suffix'))]",
         "eventHubName": "[concat(parameters('deploymentPrefix'),'eventhub',variables('suffix'))]",
@@ -182,7 +223,7 @@
         "ServerBackendDeployPackageURI": "https://github.com/sysgain/SecurityAndSurveillance/raw/master/code/build/snsPackageAppins.zip",
         "SasToken": "?",
         "storageurl": "",
-        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SecurityAndSurveillance/master/"
+        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SnS/master/"
     },
     "resources": [
         {
@@ -316,6 +357,30 @@
                     },
                     "trafficManagerSettings": {
                         "value": "[variables('trafficManagerSettings')]"
+                    },
+                    "solutionType": {
+                        "value": "[parameters('solutionType')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "certificateBinding",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "dependsOn": [
+                "RecoveryWebApp",
+                "TrafficwebAppDr"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BasicUrl'),'nested/certificate-redeploy.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "certificateBinding": {
+                        "value": "[variables('certificateBinding')]"
                     },
                     "solutionType": {
                         "value": "[parameters('solutionType')]"
