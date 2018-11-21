@@ -375,7 +375,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BasicUrl'),'nested/certificate-redeploy.json')]",
+                    "uri": "[concat(variables('BasicUrl'),'nested/certificatebinding-redeploy.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
