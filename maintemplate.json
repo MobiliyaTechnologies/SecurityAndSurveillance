@@ -16,7 +16,7 @@
         },
         "solutionType": {
             "type": "string",
-            "defaultValue": "Security and Servelines",
+            "defaultValue": "Security and surveillance",
             "metadata": {
                 "description": "Provide the name of the Solution."
             }
@@ -44,7 +44,7 @@
                 "westeurope"
             ],
             "metadata": {
-                "description": "Choose location for CognitiveServices, for more information about the Data Lake Store navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
+                "description": "Choose location for CognitiveServices, for more information about the cognitiveServiceLocation navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
             }
         },
         "omsLocation": {
@@ -79,7 +79,7 @@
                 "description": "specify the region for application insights"
             }
         },
-        "locationDr": {
+        "locationDR": {
             "type": "string",
             "defaultValue": "NA",
             "allowedValues": [
@@ -104,7 +104,7 @@
                 "UKWest"
             ],
             "metadata": {
-                "description": "Choose locationDR which is different from the resource group region,if you have selected standard (or) premium option in the solution type inputparameter, for more information about the locationDr navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
+                "description": "Choose locationDR which is different from the resource group region,if you have selected Standard (or) Premium option in the solution type inputparameter, for more information about the locationDR navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md "
             }
         },
         "trafficManagerName": {
@@ -125,7 +125,7 @@
             "type": "string",
             "defaultValue": "NA",
             "metadata": {
-                "description": "Enter Second App Client ID registrered under B2C tenant,if you choose Standard/premium Solution"
+                "description": "Enter Second App Client ID registrered under B2C tenant,if you choose Standard/Premium Solution"
             }
         },
         "b2cPolicy": {
@@ -212,7 +212,7 @@
             "eventhubNamespaceName": "[variables('eventhubNamespace')]",
             "eventHubName": "[variables('eventHubName')]",
             "location": "[variables('location')]",
-            "locationDR": "[parameters('locationDr')]",
+            "locationDR": "[parameters('locationDR')]",
             "sku": "Standard",
             "aliasName": "[variables('aliasName')]",
             "eventHubPrimaryKey": "[variables('eventHubPrimaryKey')]",
@@ -224,7 +224,7 @@
             "recoverynamespaceName": "[variables('recoverynamespace')]",
             "authNameprimary": "[concat(variables('eventhubNamespace'), '/', 'RootManageSharedAccessKey')]",
             "authNamerecovery": "[concat(variables('recoverynamespace'), '/', 'RootManageSharedAccessKey')]",
-            "disastureRecoveryConfig": "[concat(variables('eventhubNamespace'),'/', variables('aliasname'))]"
+            "disasterRecoveryConfig": "[concat(variables('eventhubNamespace'),'/', variables('aliasname'))]"
         },
         "faceApi": {
             "location": "[parameters('cognitiveServicesLocation')]",
@@ -251,11 +251,11 @@
             "DocDBAccountName": "[concat(toLower(parameters('deploymentPrefix')),'docdb',variables('suffix'))]",
             "offerType": "Standard",
             "DocDBOfferThroughput": "400",
-            "readRegionLocation": "[parameters('locationDr')]"
+            "readRegionLocation": "[parameters('locationDR')]"
         },
         "webApp": {
             "location": "[variables('location')]",
-            "locationDR": "[parameters('locationDr')]",
+            "locationDR": "[parameters('locationDR')]",
             "appServicePlanPricingTier1": "B1",
             "appServicePlanPricingTier": "S1",
             "appServicePlanInstanceCount": 1,
@@ -300,7 +300,7 @@
         },
         "certificateBinding": {
             "existingAppLocation": "[variables('location')]",
-            "existingAppLocationDr": "[parameters('locationDr')]",
+            "existingApplocationDR": "[parameters('locationDR')]",
             "hostingPlanName": "[variables('webApp').hostingPlanName]",
             "hostingPlanNameDR": "[variables('webApp').hostingPlanNameDR]",
             "certificateName": "[concat('webAppCertificate',variables('suffix'))]",
