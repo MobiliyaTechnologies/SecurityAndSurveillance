@@ -223,7 +223,7 @@
         "ServerBackendDeployPackageURI": "https://github.com/sysgain/SecurityAndSurveillance/raw/master/code/build/snsPackageAppins.zip",
         "SasToken": "?",
         "storageurl": "",
-        "BasicUrl": "https://github.com/sysgain/SecurityAndSurveillance/master/"
+        "BasicUrl": "https://raw.githubusercontent.com/sysgain/SecurityAndSurveillance/master"
     },
     "resources": [
         {
