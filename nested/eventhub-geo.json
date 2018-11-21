@@ -231,7 +231,7 @@
         },
         {
             "type": "Microsoft.EventHub/namespaces/disasterRecoveryConfigs",
-            "name":"[parameters('eventhub').disastureRecoveryConfig]",
+            "name":"[parameters('eventhub').disasterRecoveryConfig]",
             "apiVersion": "2017-04-01",
             "scale": null,
             "properties": {
