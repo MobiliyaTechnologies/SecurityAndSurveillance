@@ -35,7 +35,7 @@
                 "description": "choose the location for cognitiveServicesLocation which is diffrent from the primary deployment cognitiveServiceLocation"
             }
         },
-        "locationDr": {
+        "locationDR": {
             "type": "string",
             "defaultValue": "",
             "allowedValues": [
@@ -145,7 +145,7 @@
         },
         "eventhub": {
             "eventHubName": "[variables('eventHubName')]",
-            "locationDR": "[parameters('locationDr')]",
+            "locationDR": "[parameters('locationDR')]",
             "sku": "Standard",
             "aliasName": "[variables('aliasName')]",
             "eventHubSecondaryKey": "[concat(uniqueString(variables('eventhubNamespaceName'), resourceGroup().Id, 'secondaryKey'),'F9NRSV78nYomDlFjsz21X9aVKPL4Eo=')]",
@@ -166,7 +166,7 @@
             "standardVisionApiPricingTier": "S1"
         },
         "webApp": {
-            "locationDR": "[parameters('locationDr')]",
+            "locationDR": "[parameters('locationDR')]",
             "appServicePlanPricingTier": "S1",
             "appServicePlanInstanceCount": 1,
             "hostingPlanNameDR": "[concat(parameters('deploymentPrefix'),'AppServPlanDR',variables('suffix'))]",
@@ -196,7 +196,7 @@
             "trafficManagerName": "[parameters('TrafficManagerName')]"
         },
         "certificateBinding": {
-            "existingAppLocationDR": "[parameters('locationDR')]",
+            "existingApplocationDR": "[parameters('locationDR')]",
             "hostingPlanNameDR": "[variables('hostingPlanNameDR')]",
             "certificateNameDR": "[concat('webAppCertificateDR',variables('suffix'))]",
             "webSiteNameDR": "[variables('webSiteNameDR')]",
