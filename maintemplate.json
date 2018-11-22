@@ -16,7 +16,7 @@
         },
         "solutionType": {
             "type": "string",
-            "defaultValue": "Security and surveillance",
+            "defaultValue": "SecurityAndSurveillance",
             "metadata": {
                 "description": "Provide the name of the Solution."
             }
