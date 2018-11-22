@@ -13,7 +13,7 @@
         },
         "solutionType": {
             "type": "string",
-            "defaultValue": "Security and Servelines",
+            "defaultValue": "SecurityAndSurveillance",
             "metadata": {
                 "description": "Provide the name of the solution"
             }
