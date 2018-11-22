@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "deploymentPrefix": {
+            "value": "security"
+        },
+        "solutionType": {
+            "value": "SecurityAndSurveillance"
+        },
+        "cognitiveServicesLocation": {
+            "value": "eastus"
+        },
+        "locationDR": {
+            "value": "EastUS2"
+        },
+        "trafficManagerName": {
+            "value": "trafficxxxxxxName"
+        },
+        "b2cApplicationIdDR": {
+            "value": "f58xxxxx-xxxx-xxxx-xxxx-f5xxxxxed570"
+        },
+        "b2cPolicy": {
+            "value": "B2C_x_xxxxxx-In"
+        },
+        "b2cTenant": {
+            "value": "xxxxxxxxxx.onmicrosoft.com"
+        },
+        "b2cScopeDR": {
+            "value": "https://xxxxxxxxx.onmicrosoft.com/xxxxxxx"
+        },
+        "videoIndexerKey": {
+            "value": "11xxxxxxxxxxxxxxxxxxxxxxxxxxxx54"
+        },
+        "keyVaultName": {
+            "value": "keyxxxxxms"
+        },
+        "keyVaultwebAppSecretName": {
+            "value": "appcerxxxxxxxx4-8xx4-4xxd-9xxb-exxxxxxxxxxxxxxxad"
+        },
+        "keyVaultResourceGroup": {
+            "value": "axxxxxxxxxcate"
+        },
+        "webAppCertificatethumbPrint": {
+            "value": "780Exxxxxxxxxxxxxxxxxxxxxxxxx65AA"
+        }
+    }
+}
