@@ -100,29 +100,25 @@
             }
         },
         "keyVaultName": {
-            "type": "string",
-            "defaultValue": "NA",
+            "type": "string",            
             "metadata": {
                 "description": "provide the name of the keyvalut"
             }
         },
         "keyVaultwebAppSecretName": {
-            "type": "string",
-            "defaultValue": "NA",
+            "type": "string",           
             "metadata": {
                 "description": "provide the name of the webapp secret name "
             }
         },
         "keyVaultResourceGroup": {
             "type": "string",
-            "defaultValue": "NA",
             "metadata": {
                 "description": "provide the name of the keyvalut resource group"
             }
         },
         "webAppCertificatethumbPrint": {
             "type": "string",
-            "defaultValue": "NA",
             "metadata": {
                 "description": "provide the thumbprint of the web app certificate."
             }
