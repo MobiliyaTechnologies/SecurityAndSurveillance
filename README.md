@@ -39,7 +39,9 @@ Simplest way to perform the software setup on Azure is to:
 This step will only install required components on hardware. Refer step 2.2.3 for configuration step. 
 Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
-* Follow the guidelines provided in the following link ([Xavier Flashing](https://docs.nvidia.com/jetson/jetpack/index.html#jetpack/4.1.1/install.htm%3FTocPath%3D_____3)) for flashing Xavier Board.
+* Follow the guidelines provided in the following link ([Xavier Flashing](https://docs.nvidia.com/jetson/jetpack/index.html#jetpack/4.1.1/install.htm%3FTocPath%3D_____3)) for 
+flashing Xavier Board.
+Note : please confirm that you are downloading Jetpack 4.1.1 only
 ##### Opt1: Both Aggregator and Compute Engine on Xavier
 * Open Terminal on Xavier and follow below steps to install Aggregator and ComputeEngine on Xavier. (will take ~30 mins)
 ``` 
