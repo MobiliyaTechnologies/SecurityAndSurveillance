@@ -45,7 +45,7 @@ Note : please confirm that you are downloading Jetpack 4.1.1 only
 ##### Opt1: Both Aggregator and Compute Engine on Xavier
 * Open Terminal on Xavier and follow below steps to install Aggregator and ComputeEngine on Xavier. (will take ~30 mins)
 ``` 
-    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ git clone -b xavierboard https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/installation
     $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
@@ -54,7 +54,7 @@ Note : please confirm that you are downloading Jetpack 4.1.1 only
 ##### Opt2: Separate installation
 * Open Terminal on Xavier and follow below steps to install only ComputeEngine on Xavier. (Aggregator should be installed on another machine)
 ``` 
-    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ git clone -b xavierboard https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/ComputeEngine
     $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
@@ -62,7 +62,7 @@ Note : please confirm that you are downloading Jetpack 4.1.1 only
 ```
 * Open Terminal on Hostmachine (preferably Ubuntu) and follow below steps to install Aggregator.
 ``` 
-    $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
+    $ git clone -b xavierboard https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/Aggregator
     $ sed -i -e 's/\r$//' install.sh
     $ sudo chmod +x install.sh
