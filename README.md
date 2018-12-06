@@ -19,8 +19,8 @@ If you are looking to just browse through the source code, please refer to secti
 2) Azure B2C application ([setup guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%202%20B2C%20Setup%201.0.0.pdf))
 3) Video Indexer ([setup guide](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%203%20Video%20Indexer%201.0.0.pdf))
 ##### 2.1.2 Hardware Pre-requisite for setup: 
-1) Nvidia Jetson TX2 hardware 
-2) Host machine with Linux (for flashing Nvidia Jetson)
+1) Xavier Board hardware 
+2) Host machine with Linux (for flashing Xavier Board)
 3) Camera with RTSP URL 
 
 ### 2.2 Setup
@@ -39,9 +39,9 @@ Simplest way to perform the software setup on Azure is to:
 This step will only install required components on hardware. Refer step 2.2.3 for configuration step. 
 Ensure that the pre-requisites are met.
 Simplest way to complete hardware setup is to:
-* Follow the guidelines provided in the following document ([Jetson Flashing](https://github.com/MobiliyaTechnologies/SecurityAndSurveillance/blob/master/Setup/Step%206%20Jetson%20Flashing%201.0.0.pdf)) for flashing Nvidia jetson.
-##### Opt1: Both Aggregator and Compute Engine on Jetson
-* Open Terminal on Jetson and follow below steps to install Aggregator and ComputeEngine on Jetson. (will take ~30 mins)
+* Follow the guidelines provided in the following link ([Xavier Flashing](https://docs.nvidia.com/jetson/jetpack/index.html#jetpack/4.1.1/install.htm%3FTocPath%3D_____3)) for flashing Xavier Board.
+##### Opt1: Both Aggregator and Compute Engine on Xavier
+* Open Terminal on Xavier and follow below steps to install Aggregator and ComputeEngine on Xavier. (will take ~30 mins)
 ``` 
     $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/installation
@@ -50,7 +50,7 @@ Simplest way to complete hardware setup is to:
     $ ./install.sh -r=https://github.com/MobiliyaTechnologies
 ```
 ##### Opt2: Separate installation
-* Open Terminal on Jetson and follow below steps to install only ComputeEngine on Jetson. (Aggregator should be installed on another machine)
+* Open Terminal on Xavier and follow below steps to install only ComputeEngine on Xavier. (Aggregator should be installed on another machine)
 ``` 
     $ git clone https://github.com/MobiliyaTechnologies/SecurityAndSurveillance.git
     $ cd SecurityAndSurveillance/Setup/ComputeEngine
