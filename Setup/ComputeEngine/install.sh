@@ -10,7 +10,7 @@ if [[ -d "ComputeEngine" ]]; then
  sudo rm -rf ComputeEngine
  fi
 
-git clone https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/ComputeEngine
+git clone -b xavierboard https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/ComputeEngine
 if [ "$?" -eq "0" ]
 then
 echo -e "\n*************ComputeEngine clone success"
@@ -27,7 +27,7 @@ cd ~/
 
 #Install NodeJS
 echo -e "\n*************Installing NodeJs"
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
 sudo apt-get install -y nodejs
 
 #Install JSON for C

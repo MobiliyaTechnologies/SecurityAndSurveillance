@@ -1,15 +1,15 @@
 #!/bin/bash
 AGGREGATOR_BRANCH='jetson-only'
-COMPUTEENGINE_BRANCH='jetson-only'
+COMPUTEENGINE_BRANCH='xavierboard'
 BASE_DIR=${PWD}
 
 cd ~/
 sudo apt-get install -y git cmake curl aptitude
-git clone https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/ComputeEngine
+git clone -b ${COMPUTEENGINE_BRANCH} https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/ComputeEngine
 git clone -b ${AGGREGATOR_BRANCH}  https://snsguest:Mobgit12%21%40@github.com/MobiliyaTechnologies/Aggregator 
 
 #Install NodeJS
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
 sudo apt-get install -y nodejs
 
 sudo apt-get install -y python-pip
