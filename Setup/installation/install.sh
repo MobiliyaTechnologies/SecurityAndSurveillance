@@ -17,6 +17,7 @@ sudo pip install simplejson requests
 #Install JSON for C
 sudo apt-get install -y libjson0 libjson0-dev
 sudo apt-get install -y libjson0-dbg
+sudo apt-get install -y libjson-c-dev
 
 #Install Curl library
 sudo apt-get install -y libcurl4-gnutls-dev
