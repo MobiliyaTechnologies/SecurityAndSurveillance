@@ -171,7 +171,7 @@ The main use of this solution is whenever disaster recovery occurs the redeploym
 
 The below diagram depicts the dataflow between Azure components in Standard solution:
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/g3.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/g4.png)
 
 Standard Architecture comprises of following components:
 
@@ -204,7 +204,7 @@ All the components get deployed at once in the Premium architecture.
 
 The below diagram depicts the dataflow between Azure components in Premium solution:
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/g4.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/g3.png)
 
 Premium Architecture comprises of following components:
 
