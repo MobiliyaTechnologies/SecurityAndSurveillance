@@ -347,9 +347,10 @@ In the parameters section of the template, specify the values as inputs when dep
 
 | **Parameter Name**  | **Description**     | **Allowed Values**    | **Default Values**   |                                                                                                            
 | -------------       | -------------       | -----------------     | ------------         |
-| **Solution Type**   | Choose the solution deployment type from the drop down, for more information about the solution deployment type navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md      | Basic, Standard, Premium | Basic solution|
+| **deploymentType**  | Choose the solution deployment type from the drop down, for more information about the solution deployment type navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md      | Basic, Standard, Premium | Basic solution|
+|  **solutionType**   | Provide the name of teh solution   |    |  SecurityAndSurveillance    |
 | **deploymentPrefix**   | A unique string for the deployment with maximum 15 characters which would be used to provision the resources   |         |            |
-| **cognitive Services Location**   | Choose location for CognitiveServices, for more information about the Data Lake Store navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md   | eastus, eastus2, westus, westus2, southcentralus, westcentralus, northeurope, westeurope   | eastus |
+| **cognitive Services Location**   | Choose location for CognitiveServices, for more information about the cognitiveServiceLocation navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md   | eastus, eastus2, westus, westus2, southcentralus, westcentralus, northeurope, westeurope   | eastus |
 | **OMS Location**   | Choose location for OMS Log Analytics to deploy. For more information,see https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview   | australiasoutheast, canadacentral, centralindia, eastus, japaneast, southeastasia, uksouth, westeurope  | eastus  |
 | **App Insights Location**  | specify the region for application insights   | eastus, northeurope, southcentralus, southeastasia, westeurope, westus2 | westus2 |
 | **Location DR**  | Choose locationDR which is different from the resource group region,if you have selected standard (or) premium option in the solution type inputparameter, for more information about the locationDr navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md   | NA, EastUS2, CentralUS, WestUS2, WestCentralUS, CanadaCentral, CanadaEast, AustraliaEast, AustraliaSouthEast, CentralIndia,  SouthIndia, EastAsia, SouthEastAsia, JapanWest, JapanEast, KoreaCentral,    KoreaSouth, UKSouth, UKWest | NA |
@@ -428,7 +429,7 @@ https://github.com/sysgain/SecurityAndSurveillance/tree/master
 
 #### 5.1.1 Inputs
 
-These parameter values enable you to customize the deployment by providing values. There parameters allow to choose the solution type, region and AD Application details. 
+These parameter values enable you to customize the deployment by providing values. There parameters allow to choose the deployment type, region and AD Application details. 
 
 **Parameters for Basic Solution**:
 
@@ -535,7 +536,7 @@ vim maintemplate.json
 
 ![alt text](https://github.com/sysgain/SecurityAndSurveillance/raw/master/images/7.png)
 
-9.	Create **maintemplate.json** using the following command. 
+9.	Create **maintemplate.parameters.json** using the following command. 
 
 ![alt text](https://github.com/sysgain/SecurityAndSurveillance/raw/master/images/8.png)
 
