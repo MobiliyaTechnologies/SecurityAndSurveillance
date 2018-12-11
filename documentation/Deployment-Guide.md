@@ -353,7 +353,7 @@ In the parameters section of the template, specify the values as inputs when dep
 | **OMS Location**   | Choose location for OMS Log Analytics to deploy. For more information,see https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview   | australiasoutheast, canadacentral, centralindia, eastus, japaneast, southeastasia, uksouth, westeurope  | eastus  |
 | **App Insights Location**  | specify the region for application insights   | eastus, northeurope, southcentralus, southeastasia, westeurope, westus2 | westus2 |
 | **Location DR**  | Choose locationDR which is different from the resource group region,if you have selected standard (or) premium option in the solution type inputparameter, for more information about the locationDr navigate to https://github.com/sysgain/SecurityAndSurveillance/blob/master/documentation/Deployment-Guide.md   | NA, EastUS2, CentralUS, WestUS2, WestCentralUS, CanadaCentral, CanadaEast, AustraliaEast, AustraliaSouthEast, CentralIndia,  SouthIndia, EastAsia, SouthEastAsia, JapanWest, JapanEast, KoreaCentral,    KoreaSouth, UKSouth, UKWest | NA |
-| **Traffic Manager Name**    | Please provide the name of the trafficmanager certficate custome domain name   |    | NA |
+| **Traffic Manager Name**    | Please provide the name of the trafficmanager certficate custom domain name   |    | NA |
 | **Azure B2C Application ID**   | Enter App Client ID registrered under B2C tenant   |     |   f58xxxxx-xxxx-xxxx-xxxx-f5xxxxxed570   |
 | **B2C ApplicationID DR**    | Enter Second App Client ID registrered under B2C tenant,if you choose Standard/premium Solution | | NA |
 | **B2C Policy**   | Enter B2C SignUp-SignIn policy      |       |   B2C_x_xxxxxx-In  |
@@ -393,7 +393,7 @@ Resource manager provides the following feature:
 
 https://github.com/sysgain/SecurityAndSurveillance/tree/master
 
-2. Select **main-template.json** from **master** branch, click on **Raw** from the top right corner.
+2. Select **maintemplate.json** from **master** branch, click on **Raw** from the top right corner.
 **Copy** the raw template and **paste** in your Azure portal for template deployment.
 
 ![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/d60.png)
@@ -594,7 +594,7 @@ az group create -n <resource group name> -l <location>
 **Syntax**:  
 
 ```
-az group deployment create --template-file './<main-template.json filename>' --parameters '@./<main-template.parameters.json filename>' -g < provide resource group name that created in previous section> -n deploy >> <provide the outputs filename> 
+az group deployment create --template-file './<maintemplate.json filename>' --parameters '@./<maintemplate.parameters.json filename>' -g < provide resource group name that created in previous section> -n deploy >> <provide the outputs filename> 
 
 ```
 
