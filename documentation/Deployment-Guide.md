@@ -499,7 +499,7 @@ Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure
 
 Deployment can proceed within the Azure Portal via **Azure Cloud Shell**. 
 
-Customize **main-template.parameters.json** file 
+Customize **maintemplate.parameters.json** file 
 
 1.	Log in to **Azure portal**. 
 
