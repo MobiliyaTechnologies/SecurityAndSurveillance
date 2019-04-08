@@ -2,7 +2,7 @@
 
 # Security and Surveillance Solution
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/raw/master/images/sns-admin.PNG)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/raw/master/images/sns-admin.png)
 
 ### Table of Contents
 
