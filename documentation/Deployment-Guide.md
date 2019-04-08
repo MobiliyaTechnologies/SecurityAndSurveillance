@@ -1,6 +1,6 @@
 # Microsoft
 
-# Security Surveillance
+# Security and Surveillance solution
 
 ## Deployment Guide
 
