@@ -181,42 +181,6 @@
                         "ApplicationInsights:InstrumentationKey": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsights').appInsightResourceName), '2014-04-01').InstrumentationKey]",
                         "WEBSITE_NODE_DEFAULT_VERSION": "6.9.1"
                     }
-                },
-                {
-                    "name": "Microsoft.Insights/service",
-                    "type": "providers/diagnosticSettings",
-                    "apiVersion": "2015-07-01",
-                    "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').webSiteName)]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').webSiteName, '/config/web')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').webSiteName, '/config/connectionstrings')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').webSiteName, '/extensions/MSDeploy')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').webSiteName, '/config/appSettings')]"
-                    ],
-                    "properties": {
-                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
-                        "logs": [
-                            {
-                                "category": "FunctionExecutionLogs",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "days": 0,
-                                    "enabled": false
-                                }
-                            }
-                        ],
-                        "metrics": [
-                            {
-                                "timeGrain": "AllMetrics",
-                                "category": "AllMetrics",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "enabled": false,
-                                    "days": 0
-                                }
-                            }
-                        ]
-                    }
                 }
             ]
         },
@@ -379,41 +343,6 @@
                         "InstrumentationKey": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsights').appInsightResourceName), '2014-04-01').InstrumentationKey]",
                         "WEBSITE_NODE_DEFAULT_VERSION": "6.9.1"
                     }
-                },
-                {
-                    "name": "Microsoft.Insights/service",
-                    "type": "providers/diagnosticSettings",
-                    "apiVersion": "2015-07-01",
-                    "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').serverBackendName)]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').serverBackendName, '/config/web')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').serverBackendName, '/config/connectionstrings')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').serverBackendName, '/extensions/MSDeploy')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').serverBackendName, '/config/appSettings')]"
-                    ],
-                    "properties": {
-                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
-                        "logs": [
-                            {
-                                "category": "FunctionExecutionLogs",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "days": 0,
-                                    "enabled": false
-                                }
-                            }
-                        ],
-                        "metrics": [
-                            {
-                                "timeGrain": "PT1M",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "enabled": false,
-                                    "days": 0
-                                }
-                            }
-                        ]
-                    }
                 }
             ]
         },
@@ -568,41 +497,6 @@
                     "properties": {
                         "InstrumentationKey": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsights').appInsightResourceName), '2014-04-01').InstrumentationKey]",
                         "WEBSITE_NODE_DEFAULT_VERSION": "6.9.1"
-                    }
-                },
-                {
-                    "name": "Microsoft.Insights/service",
-                    "type": "providers/diagnosticSettings",
-                    "apiVersion": "2015-07-01",
-                    "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').computeEngineName)]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').computeEngineName, '/config/web')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').computeEngineName, '/config/connectionstrings')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').computeEngineName, '/extensions/MSDeploy')]",
-                        "[concat('Microsoft.Web/sites/', parameters('webApp').computeEngineName, '/config/appSettings')]"
-                    ],
-                    "properties": {
-                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
-                        "logs": [
-                            {
-                                "category": "FunctionExecutionLogs",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "days": 0,
-                                    "enabled": false
-                                }
-                            }
-                        ],
-                        "metrics": [
-                            {
-                                "timeGrain": "PT1M",
-                                "enabled": true,
-                                "retentionPolicy": {
-                                    "enabled": false,
-                                    "days": 0
-                                }
-                            }
-                        ]
                     }
                 }
             ]
