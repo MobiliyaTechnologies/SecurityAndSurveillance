@@ -243,6 +243,7 @@ Password: ***************
 
 ### 3.3 Certificate Creation for Traffic Manager
 
+**Note: The following steps are required for Standard and Premium Solutions only**
 1.	The Web App can be accessed with Traffic Manager URL but since the Traffic Manager has **http** protocol we need to redirect it to **https**. To redirect the http of Traffic Manager URL to https configure an SSL Certificate for your Azure App Service.
 
 2.	Click on **+Add** (icon) in the Resource Group.
