@@ -291,7 +291,7 @@ There are four types of domain verification supported by App Service Certificate
 
 ![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k1.PNG)
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k2.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k2.PNG)
 
 3.	In the **Create Key Vault** pane, assign a Name for your vault. Vault names can contain only alphanumeric characters and the hyphen (-) character.
 
@@ -299,33 +299,33 @@ There are four types of domain verification supported by App Service Certificate
 
 5.	Click **Access policies** and then click **+ Add new** as shown in the following figure.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k3.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k3.PNG)
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k4.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k4.PNG)
 
 6. Click on **Select principal** and Search for the user in the select box and click on the displayed user name and click **select**.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k5.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k5.PNG)
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k6.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k6.PNG)
 
 7.	Select All **key permissions** from the dropdown list.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k7.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k7.PNG)
 
 8.	Select **Secret permissions** and **Certificate permissions** form their respective dropdown lists and click **Ok** button.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k8.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k8.PNG)
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k9.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k9.PNG)
 
 9.	Click on **Create** button.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k10.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k10.PNG)
 
 10.	Here we can see the overview of the key vault.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k11.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k11.PNG)
 
 
 #### 3.3.1 Retrieving the web app certificate secret name and thumbprint from key vault
