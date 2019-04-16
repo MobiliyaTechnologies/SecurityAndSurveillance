@@ -289,7 +289,7 @@ There are four types of domain verification supported by App Service Certificate
 
 2.	Search **Key Vault** in the textbox and click on create.
 
-![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k1.png)
+![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k1.PNG)
 
 ![alt text](https://github.com/sysgain/SecurityAndSurveillance/blob/master/images/k2.png)
 
