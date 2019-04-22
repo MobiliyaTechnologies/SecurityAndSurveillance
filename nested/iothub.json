@@ -1,0 +1,231 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "iothub":{
+            "type": "object"
+        },
+        "eventhub":{
+            "type": "object"
+        },
+        "omsSettings":{
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2016-02-03",
+            "location": "[parameters('iothub').location]",
+            "name": "[parameters('iothub').iotHubName]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "eventHubEndpoints": {
+                    "events": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 2
+                    }
+                },
+                "cloudToDevice": {
+                    "defaultTtlAsIso8601": "PT1H",
+                    "maxDeliveryCount": 10,
+                    "feedback": {
+                        "maxDeliveryCount": 10,
+                        "ttlAsIso8601": "PT1H",
+                        "lockDurationAsIso8601": "PT60S"
+                    }
+                },
+                "routing": {
+                    "endpoints": {
+                        "serviceBusQueues": [],
+                        "serviceBusTopics": [],
+                        "eventHubs": [
+                            {
+                                "connectionString": "[parameters('eventhub').eventHubConnectionString]",
+                                "name": "EventHubEndpoint",
+                                "subscriptionId": "[subscription().subscriptionId]",
+                                "resourceGroup": "[resourceGroup().name]"
+                            }
+                        ],
+                        "storageContainers": []
+                    },
+                    "routes": [
+                        {
+                            "name": "EventhubRoute",
+                            "source": "DeviceMessages",
+                            "condition": "type=\"cloudComputeImages\"",
+                            "endpointNames": [
+                                "EventHubEndpoint"
+                            ],
+                            "isEnabled": true
+                        }
+                    ],
+                    "fallbackRoute": {
+                        "name": "$fallback",
+                        "source": "DeviceMessages",
+                        "condition": "true",
+                        "endpointNames": [
+                            "events"
+                        ],
+                        "isEnabled": true
+                    }
+                },
+                "location": "[parameters('iothub').location]"
+            },
+            "sku": {
+                "name": "[parameters('iothub').iotHubPricingTier]",
+                "capacity": "[parameters('iothub').iothubCapacityUnits]"
+            },
+            "resources": [
+                {
+                    "name": "Microsoft.Insights/service",
+                    "type": "providers/diagnosticSettings",
+                    "apiVersion": "[parameters('omsSettings').omsEnableApiVersion]",
+                    "dependsOn": [
+                        "[concat('Microsoft.Devices/IotHubs/', parameters('iotHub').iotHubName)]"
+                    ],
+                    "properties": {
+                        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsSettings').omsWorkspaceName)]",
+                        "logs": [
+                            {
+                                "category": "Connections",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "FileUploadOperations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "Routes",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "D2CTwinOperations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "C2DTwinOperations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "TwinQueries",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "JobsOperations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "DirectMethods",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "DeviceTelemetry",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "C2DCommands",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "DeviceIdentityOperations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            },
+                            {
+                                "category": "DistributedTracing",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }  
+                            },
+                            {
+                                "category": "Configurations",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }  
+                            },
+                            {
+                                "category": "DeviceStreams",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }  
+                            }
+                        ],
+                        "metrics": [
+                            {
+                                "timeGrain": "AllMetrics",
+                                "category": "AllMetrics",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "enabled": false,
+                                    "days": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "type": "Microsoft.Devices/IotHubs"
+        }
+    ],
+    "outputs": {
+        "iotHubConnectionString":{
+            "type": "string",
+            "value": "[concat('HostName=',parameters('iothub').iotHubName,'.azure-devices.net;SharedAccessKeyName=',parameters('iothub').iotHubKeyName,';SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys', parameters('iothub').iotHubName, parameters('iothub').iotHubKeyName), '2016-02-03').primaryKey)]"
+        }
+    }
+}

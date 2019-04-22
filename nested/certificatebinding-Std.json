@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "certificateBinding": {
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/certificates",
+            "name": "[parameters('certificateBinding').certificateName]",
+            "apiVersion": "[parameters('certificateBinding').apiVersion]",
+            "location": "[parameters('certificateBinding').existingAppLocation]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "keyVaultId": "[parameters('certificateBinding').keyVaultResourceid]",
+                "keyVaultSecretName": "[parameters('certificateBinding').keyVaultSecretName]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('certificateBinding').hostingPlanName)]"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostnameBindings",
+            "name": "[concat(parameters('certificateBinding').webSiteName, '/', parameters('certificateBinding').customHostname)]",
+            "apiVersion": "[parameters('certificateBinding').apiVersion]",
+            "location": "[parameters('certificateBinding').existingAppLocation]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "sslState": "SniEnabled",
+                "thumbprint": "[parameters('certificateBinding').thumbPrint]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/certificates', parameters('certificateBinding').certificateName)]"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "iothub":{
+            "type": "object"
+        },
+        "eventhub":{
+            "type": "object"
+        },
+        "solutionType":{
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2016-02-03",
+            "location": "[parameters('iothub').location]",
+            "name": "[parameters('iothub').iotHubName]",
+            "tags": {
+                "IotSuiteType": "[parameters('solutionType')]"
+            },
+            "properties": {
+                "eventHubEndpoints": {
+                    "events": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 2
+                    }
+                },
+                "cloudToDevice": {
+                    "defaultTtlAsIso8601": "PT1H",
+                    "maxDeliveryCount": 10,
+                    "feedback": {
+                        "maxDeliveryCount": 10,
+                        "ttlAsIso8601": "PT1H",
+                        "lockDurationAsIso8601": "PT60S"
+                    }
+                },
+                "routing": {
+                    "endpoints": {
+                        "serviceBusQueues": [],
+                        "serviceBusTopics": [],
+                        "eventHubs": [
+                            {
+                                "connectionString": "[parameters('eventhub').eventHubConnectionString]",
+                                "name": "EventHubEndpoint",
+                                "subscriptionId": "[subscription().subscriptionId]",
+                                "resourceGroup": "[resourceGroup().name]"
+                            },
+                            {
+                                "connectionString": "[parameters('eventhub').eventHubConnectionString1]",
+                                "name": "EventHubEndpoint1",
+                                "subscriptionId": "[subscription().subscriptionId]",
+                                "resourceGroup": "[resourceGroup().name]"
+                            }
+
+                        ],
+                        "storageContainers": []
+                    },
+                    "routes": [
+                        {
+                            "name": "EventhubRoute",
+                            "source": "DeviceMessages",
+                            "condition": "type=\"cloudComputeImages\"",
+                            "endpointNames": [
+                                "EventHubEndpoint",
+                                "EventHubEndpoint1"
+
+                            ],
+                            "isEnabled": true
+                        },
+                        {
+                            "name": "EventhubRoute1",
+                            "source": "DeviceMessages",
+                            "condition": "type=\"cloudComputeImages\"",
+                            "endpointNames": [
+                                "EventHubEndpoint1"
+
+                            ],
+                            "isEnabled": true
+                        }
+                    ],
+                    "fallbackRoute": {
+                        "name": "$fallback",
+                        "source": "DeviceMessages",
+                        "condition": "true",
+                        "endpointNames": [
+                            "events"
+                        ],
+                        "isEnabled": true
+                    }
+                },
+                "location": "[parameters('iothub').location]"
+            },
+            "sku": {
+                "name": "[parameters('iothub').iotHubPricingTier]",
+                "capacity": "[parameters('iothub').iothubCapacityUnits]"
+            },
+            "type": "Microsoft.Devices/IotHubs"
+        }
+    ],
+    "outputs": {
+        "iotHubConnectionString":{
+            "type": "string",
+            "value": "[concat('HostName=',parameters('iothub').iotHubName,'.azure-devices.net;SharedAccessKeyName=',parameters('iothub').iotHubKeyName,';SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys', parameters('iothub').iotHubName, parameters('iothub').iotHubKeyName), '2016-02-03').primaryKey)]"
+        }
+    }
+}

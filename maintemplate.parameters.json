@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "deploymentType":{
+            "value":"Basic-Solution"
+        },
+        "solutionType": {
+            "value": "SecurityAndSurveillance"
+        },
+        "deploymentPrefix": {
+            "value": "security"
+        },
+        "cognitiveServicesLocation": {
+            "value": "eastus"
+        },
+        "omsLocation": {
+            "value": "eastus"
+        },
+        "appInsightsLocation": {
+            "value": "westus2"
+        },
+        "locationDR": {
+            "value": "NA"
+        },
+        "trafficManagerName": {
+            "value": "NA"
+        },
+        "b2cApplicationId": {
+            "value": "f58xxxxx-xxxx-xxxx-xxxx-f5xxxxxed570"
+        },
+        "b2cApplicationIdDR": {
+            "value": "NA"
+        },
+        "b2cPolicy": {
+            "value": "B2C_x_xxxxxx-In"
+        },
+        "b2cTenant": {
+            "value": "xxxxxxxxxx.onmicrosoft.com"
+        },
+        "b2cScope": {
+            "value": "https://xxxxxxxxx.onmicrosoft.com/xxxxxxx"
+        },
+        "b2cScopeDR": {
+            "value": "NA"
+        },
+        "videoIndexerKey": {
+            "value": "11xxxxxxxxxxxxxxxxxxxxxxxxxxxx54"
+        },
+        "keyVaultName": {
+            "value": "NA"
+        },
+        "keyVaultwebAppSecretName": {
+            "value": "NA"
+        },
+        "keyVaultResourceGroup": {
+            "value": "NA"
+        },
+        "webAppCertificatethumbPrint": {
+            "value": "NA"
+        }
+    }
+}
